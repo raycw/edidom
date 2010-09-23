@@ -2,7 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.cargosmart.b2b</groupId>
   <artifactId>edi-common</artifactId>
+  <name>edi-common</name>
   <version>0.0.1-SNAPSHOT</version>
+  <url>https://code.google.com/p/edi-common/</url>
+  <scm>
+  </scm>
+  <repositories>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>commons-io</groupId>
