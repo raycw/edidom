@@ -7,6 +7,7 @@ public class InterchangeEnvelope {
 
 	private Document document;
 	private List<GroupEnvelope> groups = new ArrayList<GroupEnvelope>();
+	
 
 	public InterchangeEnvelope setDocument(Document document) {
 		if (this.document != document) {

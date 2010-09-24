@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import com.cargosmart.b2b.edi.common.Document;
 
@@ -44,6 +45,16 @@ public class X12Builder {
 			throw new WrongDocuemntFormatException("Not a X12 Document");
 		}
 		Document document = new Document();
+		String elementSeparator = content.substring(3, 4);
+		document.setElementSeparator(elementSeparator);
+		String[] isaSegment = content.split(Pattern.quote(elementSeparator), 18);
+		// to get the segment separator, get the ISA16 value, it contains  
+		// sub-element separator,  segment separator and GS. 
+		// for example: :~\nGS
+		String segmentSeparator = isaSegment[16].substring(1).replace("GS", "");
+		String subElementSeparator = isaSegment[16].substring(0, 1);
+		document.setSegmentSeparator(segmentSeparator);
+		document.setSubElementSeparator(subElementSeparator);
 		
 		return document;
 	}
