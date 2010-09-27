@@ -7,7 +7,12 @@ public class GroupEnvelope {
 
 	private InterchangeEnvelope interchangeEnvelope;
 	private List<Transaction> transactions = new ArrayList<Transaction>();
+	private Segment segment;
 	
+	public GroupEnvelope(String[] fields) {
+		segment = new Segment(fields);
+	}
+
 	public GroupEnvelope setInterchangeEnvelope(InterchangeEnvelope interchangeEnvelope) {
 		this.interchangeEnvelope = interchangeEnvelope;
 		return this;
@@ -15,6 +20,10 @@ public class GroupEnvelope {
 	
 	public InterchangeEnvelope getInterchangeEnvelope() {
 		return interchangeEnvelope;
+	}
+	
+	public CompositeField getField(int position) {
+		return segment.getField(position);
 	}
 	
 	public GroupEnvelope detach() {
@@ -39,7 +48,40 @@ public class GroupEnvelope {
 	public List<Transaction> getTransactions() {
 		return transactions;
 	}
-	
-	
+
+	/**
+	 * @return the functionalCode
+	 */
+	public String getFunctionalCode() {
+		return getField(1).getValue().trim();
+	}
+
+	/**
+	 * @return the sendCode
+	 */
+	public String getSendCode() {
+		return getField(2).getValue().trim();
+	}
+
+	/**
+	 * @return the receiverCode
+	 */
+	public String getReceiverCode() {
+		return getField(3).getValue().trim();
+	}
+
+	/**
+	 * @return the controlNumber
+	 */
+	public String getControlNumber() {
+		return getField(6).getValue().trim();
+	}
+
+	/**
+	 * @return the version
+	 */
+	public String getVersion() {
+		return getField(8).getValue().trim();
+	}
 
 }

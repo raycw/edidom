@@ -7,7 +7,12 @@ public class Transaction {
 
 	private GroupEnvelope group;
 	private List<Segment> segments = new ArrayList<Segment>();
+	private Segment segment;
 	
+	public Transaction(String[] fields) {
+		segment = new Segment(fields);
+	}
+
 	public Transaction setGroupEnvelope(GroupEnvelope group) {
 		this.group = group;
 		return this;		
@@ -39,4 +44,21 @@ public class Transaction {
 		return segments;
 	}
 
+	/**
+	 * Gets Transaction field by position. The position is starting from 1.
+	 * 
+	 * @param position start from 1
+	 * @return Field
+	 */
+	public CompositeField getField(int position) {
+	    return segment.getField(position);
+	}
+
+	public String getType() {
+		return getField(1).getValue().trim();
+	}
+	
+	public String getControlNumber() {
+		return getField(2).getValue().trim();
+	}
 }

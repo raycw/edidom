@@ -38,7 +38,7 @@ public class InterchangeEnvelopeTest {
 	
 	@Test
 	public void testAddGroupEnvelope() {
-		GroupEnvelope group = new GroupEnvelope();
+		GroupEnvelope group = new GroupEnvelope(new String[8]);
 		interchange.addGroupEnvelope(group);
 		
 		assertEquals(1, interchange.getGroups().size());
@@ -47,7 +47,7 @@ public class InterchangeEnvelopeTest {
 	
 	@Test
 	public void testRemoveGroupEnvelope() {
-		GroupEnvelope group = new GroupEnvelope();
+		GroupEnvelope group = new GroupEnvelope(new String[8]);
 		interchange.addGroupEnvelope(group);
 		
 		interchange.removeGroupEnvelope(group);

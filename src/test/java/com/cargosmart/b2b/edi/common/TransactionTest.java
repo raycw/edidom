@@ -1,6 +1,8 @@
 package com.cargosmart.b2b.edi.common;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,8 +14,8 @@ public class TransactionTest {
 	GroupEnvelope group;
 	@Before
 	public void setUp() throws Exception {
-		group = new GroupEnvelope();
-		txn = new Transaction();
+		group = new GroupEnvelope(new String[8]);
+		txn = new Transaction(new String[2]);
 	}
 
 	@After

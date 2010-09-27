@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 import com.cargosmart.b2b.edi.common.Document;
+import com.cargosmart.b2b.edi.common.GroupEnvelope;
 import com.cargosmart.b2b.edi.common.InterchangeEnvelope;
+import com.cargosmart.b2b.edi.common.Transaction;
 
 /**
  * A X12 Document builder to build a EDI document from file or String. 
@@ -57,17 +59,33 @@ public class X12Builder {
 		document.setSegmentSeparator(segmentSeparator);
 		document.setSubElementSeparator(subElementSeparator);
 		
-		InterchangeEnvelope isa = buildInterchangeEnvelope(content, document);
+		String[] segments = content.split(Pattern.quote(segmentSeparator));
+		
+		InterchangeEnvelope isa = buildInterchangeEnvelope(segments[0], document);
 		document.setInterchangeEnvelope(isa);
+		
+		GroupEnvelope gs = buildGroupEnvelope(segments[1], document);
+		isa.addGroupEnvelope(gs);
+		
+		Transaction st = buildTransaction(segments[2], document);
+		gs.addTransaction(st);
 		
 		return document;
 	}
 
-    public InterchangeEnvelope buildInterchangeEnvelope(String content, Document document) {
-        String isaString = content.split(Pattern.quote(document.getSegmentSeparator()), 2)[0];
-        String[] isaFields = isaString.split(Pattern.quote(document.getElementSeparator()));
-        InterchangeEnvelope isa = new InterchangeEnvelope(isaFields);
-        
-        return isa;
+    private Transaction buildTransaction(String content, Document document) {
+		return new Transaction(splitFields(content, document));
+	}
+
+	private GroupEnvelope buildGroupEnvelope(String content, Document document) {
+		return new GroupEnvelope(splitFields(content, document));
+	}
+
+	private InterchangeEnvelope buildInterchangeEnvelope(String content, Document document) {
+        return new InterchangeEnvelope(splitFields(content, document));
     }
+
+	private String[] splitFields(String content, Document document) {
+		return content.split(Pattern.quote(document.getElementSeparator()));
+	}
 }
