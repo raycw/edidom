@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 import com.cargosmart.b2b.edi.common.Document;
+import com.cargosmart.b2b.edi.common.InterchangeEnvelope;
 
 /**
  * A X12 Document builder to build a EDI document from file or String. 
@@ -56,6 +57,17 @@ public class X12Builder {
 		document.setSegmentSeparator(segmentSeparator);
 		document.setSubElementSeparator(subElementSeparator);
 		
+		InterchangeEnvelope isa = buildInterchangeEnvelope(content, document);
+		document.setInterchangeEnvelope(isa);
+		
 		return document;
 	}
+
+    public InterchangeEnvelope buildInterchangeEnvelope(String content, Document document) {
+        String isaString = content.split(Pattern.quote(document.getSegmentSeparator()), 2)[0];
+        String[] isaFields = isaString.split(Pattern.quote(document.getElementSeparator()));
+        InterchangeEnvelope isa = new InterchangeEnvelope(isaFields);
+        
+        return isa;
+    }
 }

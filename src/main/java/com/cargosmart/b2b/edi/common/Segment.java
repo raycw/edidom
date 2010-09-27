@@ -5,14 +5,27 @@ import java.util.List;
 
 public class Segment {
 
-	private Transaction transaction;
+    private Transaction transaction;
 	private List<CompositeField> fields = new ArrayList<CompositeField>();
+	private String segmentTag;
+	
+	public Segment(String[] fields) {
+	    segmentTag = fields[0];
+	    for (int i = 0; i < fields.length; i++) {
+            Field field = new Field(fields[i]);
+            addField(field);
+        }
+	}
 	
 	public Segment setTransaction(Transaction transaction) {
 		this.transaction = transaction;
 		return this;
 	}
 	
+    public String getSegmentTag() {
+        return segmentTag;
+    }
+
 	public Transaction getTransaction() {
 		return transaction;
 	}
@@ -23,6 +36,10 @@ public class Segment {
 	
 	public List<CompositeField> getFields() {
 		return fields;
+	}
+	
+	public CompositeField getField(int position) {
+	    return fields.get(position);
 	}
 	
 	public Segment detach() {

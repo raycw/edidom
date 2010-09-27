@@ -9,7 +9,7 @@ public class DocumentTest {
 	@Test
 	public void testSetInterchangeEnvelope() {
 		Document doc = new Document();
-		InterchangeEnvelope interchange = new InterchangeEnvelope();
+		InterchangeEnvelope interchange = new InterchangeEnvelope(new String[16]);
 		doc.setInterchangeEnvelope(interchange);
 		
 		assertEquals(interchange, doc.getInterchangeEnvelope());

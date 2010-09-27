@@ -7,6 +7,7 @@ public class CompositeField {
 
 	private Segment segment;
 	private List<Field> fields = new ArrayList<Field>();
+    protected String value;
 	
 	public CompositeField setSegment(Segment segment) {
 		this.segment = segment;
@@ -28,4 +29,8 @@ public class CompositeField {
 		fields.add(field);
 		return this;
 	}
+
+    public String getValue() {
+    	return value;
+    }
 }

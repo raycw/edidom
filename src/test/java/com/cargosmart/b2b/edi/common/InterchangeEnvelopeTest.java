@@ -14,7 +14,7 @@ public class InterchangeEnvelopeTest {
 	@Before
 	public void setUp() throws Exception {
 		doc = new Document();
-		interchange = new InterchangeEnvelope();
+		interchange = new InterchangeEnvelope(new String[16]);
 	}
 
 	@After

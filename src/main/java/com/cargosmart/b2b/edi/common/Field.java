@@ -3,9 +3,6 @@ package com.cargosmart.b2b.edi.common;
 public class Field extends CompositeField {
 
 	private Segment segment;
-	private String value;
-	
-	
 	public Field() {
 		
 	}
@@ -14,11 +11,7 @@ public class Field extends CompositeField {
 		this.value = value;
 	}
 	
-	public String getValue() {
-		return value;
-	}
-	
-	public Field setSegment(Segment segment) {
+	public CompositeField setSegment(Segment segment) {
 		this.segment = segment;
 		return this;
 	}
@@ -33,7 +26,7 @@ public class Field extends CompositeField {
 	}
 	
 	@Override
-	public Field addField(Field field) {
+	public CompositeField addField(Field field) {
 		return this;
 	}
 

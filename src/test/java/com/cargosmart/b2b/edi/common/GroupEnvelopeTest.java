@@ -15,7 +15,7 @@ public class GroupEnvelopeTest {
 	@Before
 	public void setUp() throws Exception {
 		document = new Document();
-		interchange = new InterchangeEnvelope();
+		interchange = new InterchangeEnvelope(new String[16]);
 		document.setInterchangeEnvelope(interchange);
 		group = new GroupEnvelope();
 	}

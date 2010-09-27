@@ -41,7 +41,7 @@ public class TransactionTest {
 	
 	@Test
 	public void testAddSegement() {
-		Segment segment = new Segment();
+		Segment segment = new Segment(new String[16]);
 		txn.addSegment(segment);
 		
 		assertEquals(segment, txn.getSegements().get(0));
