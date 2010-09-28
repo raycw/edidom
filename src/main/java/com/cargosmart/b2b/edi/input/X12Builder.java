@@ -62,15 +62,29 @@ public class X12Builder {
 		
 		String[] segments = content.split(Pattern.quote(segmentSeparator));
 		
+		// assume 1st segment is ISA
 		InterchangeEnvelope isa = buildInterchangeEnvelope(buildSegment(segments[0], document));
 		document.setInterchangeEnvelope(isa);
-		
+		// 2nd segment is GS
 		GroupEnvelope gs = buildGroupEnvelope(buildSegment(segments[1], document));
 		isa.addGroupEnvelope(gs);
-		
+		// 3rd segment is ST
 		Transaction st = buildTransaction(buildSegment(segments[2], document));
 		gs.addTransaction(st);
-		
+
+		for (int i = 3; i < segments.length; i++) {
+			Segment segment = buildSegment(segments[i], document);
+			if (segment.getSegmentTag().equals("GS")) {
+				gs = buildGroupEnvelope(segment);
+				isa.addGroupEnvelope(gs);
+			} else if (segment.getSegmentTag().equals("ST")) {
+				st = buildTransaction(segment);
+				gs.addTransaction(st);
+			} else {
+				st.addSegment(segment);
+			}
+		}
+
 		return document;
 	}
 

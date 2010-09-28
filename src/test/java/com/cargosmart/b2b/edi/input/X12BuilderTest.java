@@ -10,6 +10,7 @@ import org.junit.Test;
 import com.cargosmart.b2b.edi.common.Document;
 import com.cargosmart.b2b.edi.common.GroupEnvelope;
 import com.cargosmart.b2b.edi.common.InterchangeEnvelope;
+import com.cargosmart.b2b.edi.common.Segment;
 import com.cargosmart.b2b.edi.common.Transaction;
 
 public class X12BuilderTest {
@@ -18,6 +19,7 @@ public class X12BuilderTest {
         "ISA*00*          *00*          *01*CARGOSMART     *ZZ*ACSLTEST       *100716*1228*U*00401*000000004*0*P*:~\n" + 
         "GS*RO*CARGOSMART*ACSLTEST*20100716*1228*4*X*004010~\n" + 
         "ST*301*40001~\n"+
+        "BEG*00*SA*95018017***950118~\n"+
         "SE*1*40001~\n" + 
         "GE*1*4~\n" + 
         "IEA*1*000000004~\n";
@@ -72,5 +74,12 @@ public class X12BuilderTest {
     	assertEquals(1, doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().size());
     	assertEquals("301", st.getType());
     	assertEquals("40001", st.getControlNumber());
+    }
+    
+    @Test
+    public void testSegment() {
+    	Segment segment = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).getSegements().get(0);
+    	assertEquals("BEG", segment.getSegmentTag());
+    	assertEquals("950118", segment.getField(6).getValue());
     }
 }
