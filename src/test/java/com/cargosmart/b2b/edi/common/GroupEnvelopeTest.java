@@ -16,9 +16,9 @@ public class GroupEnvelopeTest {
 	@Before
 	public void setUp() throws Exception {
 		document = new Document();
-		interchange = new InterchangeEnvelope(new String[16]);
+		interchange = new InterchangeEnvelope(new Segment(new String[16]));
 		document.setInterchangeEnvelope(interchange);
-		group = new GroupEnvelope(new String[8]);
+		group = new GroupEnvelope(new Segment(new String[8]));
 	}
 
 	@After
@@ -43,7 +43,7 @@ public class GroupEnvelopeTest {
 	
 	@Test
 	public void testAddTransaction() {
-		Transaction txn = new Transaction(new String[2]);
+		Transaction txn = new Transaction(new Segment(new String[2]));
 		group.addTransaction(txn);
 		
 		assertEquals(1, group.getTransactions().size());

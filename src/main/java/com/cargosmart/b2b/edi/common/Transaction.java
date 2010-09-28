@@ -9,8 +9,8 @@ public class Transaction {
 	private List<Segment> segments = new ArrayList<Segment>();
 	private Segment segment;
 	
-	public Transaction(String[] fields) {
-		segment = new Segment(fields);
+	public Transaction(Segment segment) {
+		this.segment = segment;
 	}
 
 	public Transaction setGroupEnvelope(GroupEnvelope group) {

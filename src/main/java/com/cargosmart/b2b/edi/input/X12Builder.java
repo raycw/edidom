@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import com.cargosmart.b2b.edi.common.Document;
 import com.cargosmart.b2b.edi.common.GroupEnvelope;
 import com.cargosmart.b2b.edi.common.InterchangeEnvelope;
+import com.cargosmart.b2b.edi.common.Segment;
 import com.cargosmart.b2b.edi.common.Transaction;
 
 /**
@@ -61,29 +62,33 @@ public class X12Builder {
 		
 		String[] segments = content.split(Pattern.quote(segmentSeparator));
 		
-		InterchangeEnvelope isa = buildInterchangeEnvelope(segments[0], document);
+		InterchangeEnvelope isa = buildInterchangeEnvelope(buildSegment(segments[0], document));
 		document.setInterchangeEnvelope(isa);
 		
-		GroupEnvelope gs = buildGroupEnvelope(segments[1], document);
+		GroupEnvelope gs = buildGroupEnvelope(buildSegment(segments[1], document));
 		isa.addGroupEnvelope(gs);
 		
-		Transaction st = buildTransaction(segments[2], document);
+		Transaction st = buildTransaction(buildSegment(segments[2], document));
 		gs.addTransaction(st);
 		
 		return document;
 	}
 
-    private Transaction buildTransaction(String content, Document document) {
-		return new Transaction(splitFields(content, document));
+    private Transaction buildTransaction(Segment segment) {
+		return new Transaction(segment);
 	}
 
-	private GroupEnvelope buildGroupEnvelope(String content, Document document) {
-		return new GroupEnvelope(splitFields(content, document));
+	private GroupEnvelope buildGroupEnvelope(Segment segment) {
+		return new GroupEnvelope(segment);
 	}
 
-	private InterchangeEnvelope buildInterchangeEnvelope(String content, Document document) {
-        return new InterchangeEnvelope(splitFields(content, document));
+	private InterchangeEnvelope buildInterchangeEnvelope(Segment segment) {
+        return new InterchangeEnvelope(segment);
     }
+	
+	private Segment buildSegment(String segmentStr, Document document) {
+	    return new Segment(splitFields(segmentStr, document));
+	}
 
 	private String[] splitFields(String content, Document document) {
 		return content.split(Pattern.quote(document.getElementSeparator()));

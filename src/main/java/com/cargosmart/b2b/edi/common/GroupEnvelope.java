@@ -9,8 +9,8 @@ public class GroupEnvelope {
 	private List<Transaction> transactions = new ArrayList<Transaction>();
 	private Segment segment;
 	
-	public GroupEnvelope(String[] fields) {
-		segment = new Segment(fields);
+	public GroupEnvelope(Segment segment) {
+		this.segment = segment;
 	}
 
 	public GroupEnvelope setInterchangeEnvelope(InterchangeEnvelope interchangeEnvelope) {

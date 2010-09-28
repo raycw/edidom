@@ -9,8 +9,8 @@ public class InterchangeEnvelope {
 	private List<GroupEnvelope> groups = new ArrayList<GroupEnvelope>();
 	private Segment segment;
 	
-	public InterchangeEnvelope(String[] fields) {
-	    segment = new Segment(fields);
+	public InterchangeEnvelope(Segment segment) {
+	    this.segment = segment;
 	}
 
 	public InterchangeEnvelope setDocument(Document document) {

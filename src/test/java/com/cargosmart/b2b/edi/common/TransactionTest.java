@@ -14,8 +14,8 @@ public class TransactionTest {
 	GroupEnvelope group;
 	@Before
 	public void setUp() throws Exception {
-		group = new GroupEnvelope(new String[8]);
-		txn = new Transaction(new String[2]);
+		group = new GroupEnvelope(new Segment(new String[8]));
+		txn = new Transaction(new Segment(new String[2]));
 	}
 
 	@After
