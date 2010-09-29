@@ -3,8 +3,15 @@ package com.cargosmart.b2b.edi.input;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.cargosmart.b2b.edi.common.Document;
@@ -23,13 +30,30 @@ public class X12BuilderTest {
         "SE*1*40001~\n" + 
         "GE*1*4~\n" + 
         "IEA*1*000000004~\n";
+    private static String x12_301;
     private Document doc;
+    private Document doc_301;
 
-    X12Builder x12builder = new X12Builder();
+    private static X12Builder x12builder;
+    
+    @BeforeClass
+    public static void onlyOnce() throws IOException {
+    	x12builder = new X12Builder();
+    	InputStream in = X12BuilderTest.class.getResourceAsStream("/X12.txt");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		char[] buffer = new char[1024];
+		int nRead;
+		StringBuilder content = new StringBuilder();
+		while ((nRead = reader.read(buffer, 0, 1024)) != -1) {
+			content.append(buffer, 0, nRead);
+		}
+		x12_301 = content.toString();
+    }
     
     @Before
     public void setUp() throws Exception {
         doc = x12builder.buildDocument(X12DOC);
+        doc_301 = x12builder.buildDocument(x12_301);
     }
 
     @After
@@ -81,5 +105,9 @@ public class X12BuilderTest {
     	Segment segment = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).getSegements().get(0);
     	assertEquals("BEG", segment.getSegmentTag());
     	assertEquals("950118", segment.getField(6).getValue());
+    	
+    	List<Segment> segments = doc_301.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).getSegements();
+    	assertEquals(27, segments.size());
+    	
     }
 }

@@ -80,6 +80,12 @@ public class X12Builder {
 			} else if (segment.getSegmentTag().equals("ST")) {
 				st = buildTransaction(segment);
 				gs.addTransaction(st);
+			} else if (segment.getSegmentTag().equals("SE")) {
+				// TODO add to transaction
+			} else if (segment.getSegmentTag().equals("GE")) {
+				// TODO add to group
+			} else if (segment.getSegmentTag().equals("IEA")) {
+				// TODO add to interchange
 			} else {
 				st.addSegment(segment);
 			}
