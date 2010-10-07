@@ -84,4 +84,18 @@ public class GroupEnvelope {
 		return getField(8).getValue().trim();
 	}
 
+	/**
+	 * A convenience method to find segment by tag name.
+	 * 
+	 * @param tag
+	 * @return List of segment
+	 */
+	public List<Segment> getSegment(String tag) {
+		List<Segment> segments = new ArrayList<Segment>();
+		for (Transaction txn : transactions) {
+			segments.addAll(txn.getSegments(tag));
+		}
+		return segments;
+	}
+
 }

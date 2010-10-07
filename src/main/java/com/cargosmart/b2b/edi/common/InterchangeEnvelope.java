@@ -75,4 +75,12 @@ public class InterchangeEnvelope {
         return getField(13).getValue().trim();
     }
 
+	public List<Segment> getSegment(String tag) {
+		List<Segment> segments = new ArrayList<Segment>();
+		for (GroupEnvelope group : groups) {
+			segments.addAll(group.getSegment(tag));
+		}
+		return segments;
+	}
+
 }

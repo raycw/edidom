@@ -3,6 +3,9 @@
  */
 package com.cargosmart.b2b.edi.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * An EDI document. It is the root element to access EDI message.
  * 
@@ -94,5 +97,11 @@ public class Document {
     public void setSubElementSeparator(String subElementSeparator) {
         this.subElementSeparator = subElementSeparator;
     }
+
+	public List<Segment> getSegment(String tag) {
+		List<Segment> segments = new ArrayList<Segment>();
+		segments.addAll(interchange.getSegment(tag));
+		return segments;
+	}
 
 }

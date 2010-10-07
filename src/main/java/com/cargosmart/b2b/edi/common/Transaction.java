@@ -61,4 +61,14 @@ public class Transaction {
 	public String getControlNumber() {
 		return getField(2).getValue().trim();
 	}
+
+	public List<Segment> getSegments(String tag) {
+		List<Segment> segments = new ArrayList<Segment>();
+		for (Segment segment : this.segments) {
+			if (segment.getSegmentTag().equals(tag)) {
+				segments.add(segment);
+			}
+		}
+		return segments;
+	}
 }
