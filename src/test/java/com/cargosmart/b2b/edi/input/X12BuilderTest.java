@@ -27,7 +27,7 @@ public class X12BuilderTest {
         "GS*RO*CARGOSMART*ACSLTEST*20100716*1228*4*X*004010~\n" + 
         "ST*301*40001~\n"+
         "BEG*00*SA*95018017***950118~\n"+
-        "SE*1*40001~\n" + 
+        "SE*3*40001~\n" + 
         "GE*1*4~\n" + 
         "IEA*1*000000004~\n";
     private static String x12_301;

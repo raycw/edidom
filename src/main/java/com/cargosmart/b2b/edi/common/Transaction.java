@@ -71,4 +71,8 @@ public class Transaction {
 		}
 		return segments;
 	}
+	
+	public List<CompositeField> getFields() {
+		return segment.getFields();
+	}
 }
