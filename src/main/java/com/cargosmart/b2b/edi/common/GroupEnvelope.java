@@ -3,14 +3,13 @@ package com.cargosmart.b2b.edi.common;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupEnvelope {
+public class GroupEnvelope extends Envelope{
 
 	private InterchangeEnvelope interchangeEnvelope;
 	private List<Transaction> transactions = new ArrayList<Transaction>();
-	private Segment segment;
 	
 	public GroupEnvelope(Segment segment) {
-		this.segment = segment;
+		super(segment);
 	}
 
 	public GroupEnvelope setInterchangeEnvelope(InterchangeEnvelope interchangeEnvelope) {
@@ -18,7 +17,7 @@ public class GroupEnvelope {
 		return this;
 	}
 	
-	public InterchangeEnvelope getInterchangeEnvelope() {
+	public Envelope getInterchangeEnvelope() {
 		return interchangeEnvelope;
 	}
 	
@@ -55,12 +54,18 @@ public class GroupEnvelope {
 	public String getFunctionalCode() {
 		return getField(1).getValue().trim();
 	}
+	public void setFunctionalCode(String code) {
+		getField(1).setValue(code);
+	}
 
 	/**
-	 * @return the sendCode
+	 * @return the senderCode
 	 */
-	public String getSendCode() {
+	public String getSenderCode() {
 		return getField(2).getValue().trim();
+	}
+	public void setSenderCode(String sender) {
+		getField(2).setValue(sender);
 	}
 
 	/**
@@ -69,6 +74,9 @@ public class GroupEnvelope {
 	public String getReceiverCode() {
 		return getField(3).getValue().trim();
 	}
+	public void setReceiverCode(String receiver) {
+		getField(3).setValue(receiver);
+	}
 
 	/**
 	 * @return the controlNumber
@@ -76,12 +84,18 @@ public class GroupEnvelope {
 	public String getControlNumber() {
 		return getField(6).getValue().trim();
 	}
+	public void setControlNumber(String controlNum) {
+		getField(6).setValue(controlNum);
+	}
 
 	/**
 	 * @return the version
 	 */
 	public String getVersion() {
 		return getField(8).getValue().trim();
+	}
+	public void setVersion(String version) {
+		getField(8).setValue(version);
 	}
 
 	/**
@@ -96,10 +110,6 @@ public class GroupEnvelope {
 			segments.addAll(txn.getSegments(tag));
 		}
 		return segments;
-	}
-	
-	public List<CompositeField> getFields() {
-		return segment.getFields();
 	}
 
 }

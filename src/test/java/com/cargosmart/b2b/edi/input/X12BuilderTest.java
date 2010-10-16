@@ -86,7 +86,7 @@ public class X12BuilderTest {
     	GroupEnvelope gs = doc.getInterchangeEnvelope().getGroups().get(0);
     	assertEquals(1, doc.getInterchangeEnvelope().getGroups().size());
     	assertEquals("RO", gs.getFunctionalCode());
-    	assertEquals("CARGOSMART", gs.getSendCode());
+    	assertEquals("CARGOSMART", gs.getSenderCode());
     	assertEquals("ACSLTEST", gs.getReceiverCode());
     	assertEquals("4", gs.getControlNumber());
     	assertEquals("004010", gs.getVersion());

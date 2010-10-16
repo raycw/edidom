@@ -3,14 +3,13 @@ package com.cargosmart.b2b.edi.common;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Transaction {
+public class Transaction extends Envelope {
 
 	private GroupEnvelope group;
 	private List<Segment> segments = new ArrayList<Segment>();
-	private Segment segment;
 	
 	public Transaction(Segment segment) {
-		this.segment = segment;
+		super(segment);
 	}
 
 	public Transaction setGroupEnvelope(GroupEnvelope group) {
@@ -57,9 +56,15 @@ public class Transaction {
 	public String getType() {
 		return getField(1).getValue().trim();
 	}
+	public void setType(String type) {
+		getField(1).setValue(type);
+	}
 	
 	public String getControlNumber() {
 		return getField(2).getValue().trim();
+	}
+	public void setControlNumber(String controlNum) {
+		getField(2).setValue(controlNum);
 	}
 
 	public List<Segment> getSegments(String tag) {
@@ -70,9 +75,5 @@ public class Transaction {
 			}
 		}
 		return segments;
-	}
-	
-	public List<CompositeField> getFields() {
-		return segment.getFields();
 	}
 }
