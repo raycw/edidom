@@ -1,107 +1,69 @@
-/**
- * 
- */
 package com.cargosmart.b2b.edi.common;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * An EDI document. It is the root element to access EDI message.
- * 
- * @author Raymond Chin
- * 
- */
-public class Document {
+import com.cargosmart.b2b.edi.common.InterchangeEnvelope;
 
-	private InterchangeEnvelope interchange;
-    private String segmentSeparator;
-    private String elementSeparator;
-    private String subElementSeparator;
+public interface Document {
 
-	public Document() {
+    /**
+     * Sets the InterchangeEnvelope of the <code>X12Document</code>. 
+     * 
+     * X12Document only contains 1 <code>InterchangeEnvelope</code>. 
+     * @param interchange new content of the <code>X12Document</code>
+     * @return this document
+     */
+    public abstract Document setInterchangeEnvelope(
+            InterchangeEnvelope interchange);
 
-	}
-	
-	/**
-	 * Sets the InterchangeEnvelope of the <code>Document</code>. 
-	 * 
-	 * Document only contains 1 <code>InterchangeEnvelope</code>. 
-	 * @param interchange new content of the <code>Document</code>
-	 * @return this document
-	 */
-	public Document setInterchangeEnvelope(InterchangeEnvelope interchange) {
-		this.interchange = interchange;
-		interchange.setDocument(this);
-		return this;
-	}
+    /**
+     * Returns the <code>InterchangeEnvelope</code> of the EDI document.
+     * @return InterchangeEnvelope of this <code>X12Document</code>
+     */
+    public abstract InterchangeEnvelope getInterchangeEnvelope();
 
-	/**
-	 * Returns the <code>InterchangeEnvelope</code> of the EDI document.
-	 * @return InterchangeEnvelope of this <code>Document</code>
-	 */
-	public InterchangeEnvelope getInterchangeEnvelope() {
-		return interchange;
-	}
+    /**
+     * Sets the document element separator
+     * 
+     * @param elementSeparator
+     */
+    public abstract void setElementSeparator(String elementSeparator);
 
-	/**
-	 * Sets the document element separator
-	 * 
-	 * @param elementSeparator
-	 */
-    public void setElementSeparator(String elementSeparator) {
-        this.elementSeparator = elementSeparator;        
-    }
-    
     /**
      * Gets the document element separator
      * 
      * @return element separator
      */
-    public String getElementSeparator() {
-        return elementSeparator;
-    }
+    public abstract String getElementSeparator();
 
     /**
      * Sets the document segment separator
      * 
      * @return segment separator
      */
-    public String getSegmentSeparator() {
-        return segmentSeparator;
-    }
+    public abstract String getSegmentSeparator();
 
     /**
      * Sets the document segment separator
      * 
      * @param segmentSeparator
      */
-    public void setSegmentSeparator(String segmentSeparator) {
-        this.segmentSeparator = segmentSeparator;
-    }
+    public abstract void setSegmentSeparator(String segmentSeparator);
 
     /**
      * Gets the document sub-element separator
      * 
      * @return sub-element separator
      */
-    public String getSubElementSeparator() {
-        return subElementSeparator;
-    }
+    public abstract String getSubElementSeparator();
 
     /**
      * Sets the document sub-element separator
      * 
      * @param subElementSeparator
      */
-    public void setSubElementSeparator(String subElementSeparator) {
-        this.subElementSeparator = subElementSeparator;
-    }
+    public abstract void setSubElementSeparator(String subElementSeparator);
 
-	public List<Segment> getSegment(String tag) {
-		List<Segment> segments = new ArrayList<Segment>();
-		segments.addAll(interchange.getSegment(tag));
-		return segments;
-	}
+    public abstract List<Segment> getSegment(String tag);
 
 }

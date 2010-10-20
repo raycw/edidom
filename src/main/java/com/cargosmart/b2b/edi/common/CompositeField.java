@@ -3,6 +3,7 @@ package com.cargosmart.b2b.edi.common;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class CompositeField {
 
 	private Segment segment;

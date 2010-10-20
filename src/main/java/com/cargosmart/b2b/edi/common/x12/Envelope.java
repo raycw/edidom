@@ -1,6 +1,9 @@
-package com.cargosmart.b2b.edi.common;
+package com.cargosmart.b2b.edi.common.x12;
 
 import java.util.List;
+
+import com.cargosmart.b2b.edi.common.CompositeField;
+import com.cargosmart.b2b.edi.common.Segment;
 
 abstract class Envelope {
 

@@ -5,12 +5,12 @@ import java.util.List;
 import com.cargosmart.b2b.edi.common.CompositeField;
 import com.cargosmart.b2b.edi.common.Document;
 import com.cargosmart.b2b.edi.common.GroupEnvelope;
-import com.cargosmart.b2b.edi.common.InterchangeEnvelope;
 import com.cargosmart.b2b.edi.common.Segment;
 import com.cargosmart.b2b.edi.common.Transaction;
+import com.cargosmart.b2b.edi.common.InterchangeEnvelope;
 
 /**
- * Output X12 Document to a string or writer. The {@link #outputString(Document) outputString} 
+ * Output X12 X12Document to a string or writer. The {@link #outputString(X12Document) outputString} 
  * method to print out X12 format string.
  * 
  * 

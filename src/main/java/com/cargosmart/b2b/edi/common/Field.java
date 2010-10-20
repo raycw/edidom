@@ -1,5 +1,6 @@
 package com.cargosmart.b2b.edi.common;
 
+
 public class Field extends CompositeField {
 
 	private Segment segment;

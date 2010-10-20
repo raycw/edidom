@@ -1,115 +1,66 @@
 package com.cargosmart.b2b.edi.common;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class GroupEnvelope extends Envelope{
+public interface GroupEnvelope {
 
-	private InterchangeEnvelope interchangeEnvelope;
-	private List<Transaction> transactions = new ArrayList<Transaction>();
-	
-	public GroupEnvelope(Segment segment) {
-		super(segment);
-	}
+    public abstract GroupEnvelope setInterchangeEnvelope(
+            InterchangeEnvelope interchangeEnvelope);
 
-	public GroupEnvelope setInterchangeEnvelope(InterchangeEnvelope interchangeEnvelope) {
-		this.interchangeEnvelope = interchangeEnvelope;
-		return this;
-	}
-	
-	public Envelope getInterchangeEnvelope() {
-		return interchangeEnvelope;
-	}
-	
-	public CompositeField getField(int position) {
-		return segment.getField(position);
-	}
-	
-	public GroupEnvelope detach() {
-		if (interchangeEnvelope != null) {
-			interchangeEnvelope.removeGroupEnvelope(this);
-		}
-		return this;
-	}
-	
-	public GroupEnvelope addTransaction(Transaction txn) {
-		transactions.add(txn);
-		txn.setGroupEnvelope(this);
-		return this;
-	}
-	
-	public GroupEnvelope removeTransaction(Transaction txn) {
-		transactions.remove(txn);
-		txn.setGroupEnvelope(null);
-		return this;
-	}
-	
-	public List<Transaction> getTransactions() {
-		return transactions;
-	}
+    public abstract InterchangeEnvelope getInterchangeEnvelope();
 
-	/**
-	 * @return the functionalCode
-	 */
-	public String getFunctionalCode() {
-		return getField(1).getValue().trim();
-	}
-	public void setFunctionalCode(String code) {
-		getField(1).setValue(code);
-	}
+    public abstract CompositeField getField(int position);
 
-	/**
-	 * @return the senderCode
-	 */
-	public String getSenderCode() {
-		return getField(2).getValue().trim();
-	}
-	public void setSenderCode(String sender) {
-		getField(2).setValue(sender);
-	}
+    public abstract GroupEnvelope detach();
 
-	/**
-	 * @return the receiverCode
-	 */
-	public String getReceiverCode() {
-		return getField(3).getValue().trim();
-	}
-	public void setReceiverCode(String receiver) {
-		getField(3).setValue(receiver);
-	}
+    public abstract GroupEnvelope addTransaction(Transaction txn);
 
-	/**
-	 * @return the controlNumber
-	 */
-	public String getControlNumber() {
-		return getField(6).getValue().trim();
-	}
-	public void setControlNumber(String controlNum) {
-		getField(6).setValue(controlNum);
-	}
+    public abstract GroupEnvelope removeTransaction(Transaction txn);
 
-	/**
-	 * @return the version
-	 */
-	public String getVersion() {
-		return getField(8).getValue().trim();
-	}
-	public void setVersion(String version) {
-		getField(8).setValue(version);
-	}
+    public abstract List<Transaction> getTransactions();
 
-	/**
-	 * A convenience method to find segment by tag name.
-	 * 
-	 * @param tag
-	 * @return List of segment
-	 */
-	public List<Segment> getSegment(String tag) {
-		List<Segment> segments = new ArrayList<Segment>();
-		for (Transaction txn : transactions) {
-			segments.addAll(txn.getSegments(tag));
-		}
-		return segments;
-	}
+    /**
+     * @return the functionalCode
+     */
+    public abstract String getFunctionalCode();
 
+    public abstract void setFunctionalCode(String code);
+
+    /**
+     * @return the senderCode
+     */
+    public abstract String getSenderCode();
+
+    public abstract void setSenderCode(String sender);
+
+    /**
+     * @return the receiverCode
+     */
+    public abstract String getReceiverCode();
+
+    public abstract void setReceiverCode(String receiver);
+
+    /**
+     * @return the controlNumber
+     */
+    public abstract String getControlNumber();
+
+    public abstract void setControlNumber(String controlNum);
+
+    /**
+     * @return the version
+     */
+    public abstract String getVersion();
+
+    public abstract void setVersion(String version);
+
+    /**
+     * A convenience method to find segment by tag name.
+     * 
+     * @param tag
+     * @return List of segment
+     */
+    public abstract List<Segment> getSegment(String tag);
+
+    public abstract List<CompositeField> getFields();
 }

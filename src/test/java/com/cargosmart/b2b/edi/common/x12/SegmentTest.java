@@ -1,4 +1,4 @@
-package com.cargosmart.b2b.edi.common;
+package com.cargosmart.b2b.edi.common.x12;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,10 +8,20 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.cargosmart.b2b.edi.common.CompositeField;
+import com.cargosmart.b2b.edi.common.Document;
+import com.cargosmart.b2b.edi.common.Field;
+import com.cargosmart.b2b.edi.common.GroupEnvelope;
+import com.cargosmart.b2b.edi.common.Segment;
+import com.cargosmart.b2b.edi.common.Transaction;
+import com.cargosmart.b2b.edi.common.x12.X12Document;
+import com.cargosmart.b2b.edi.common.x12.X12GroupEnvelope;
+import com.cargosmart.b2b.edi.common.x12.X12InterchangeEnvelope;
+
 public class SegmentTest {
 
 	private Document document;
-	private InterchangeEnvelope interchange;
+	private X12InterchangeEnvelope interchange;
 	private GroupEnvelope group;
     private Transaction txn;
     private Segment segment;
@@ -26,10 +36,10 @@ public class SegmentTest {
     
     @Before
     public void setUp() throws Exception {
-    	document = new Document();
-    	interchange = new InterchangeEnvelope(new Segment(X12_FIELDS));
-        group = new GroupEnvelope(new Segment(GRP_FIELDS));
-    	txn = new Transaction(new Segment(TXN_FIELDS));
+    	document = new X12Document();
+    	interchange = new X12InterchangeEnvelope(new Segment(X12_FIELDS));
+        group = new X12GroupEnvelope(new Segment(GRP_FIELDS));
+    	txn = new X12Transaction(new Segment(TXN_FIELDS));
         segment = new Segment(X12_FIELDS);
         field = new Field();
         cField = new CompositeField();

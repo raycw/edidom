@@ -11,9 +11,13 @@ import com.cargosmart.b2b.edi.common.GroupEnvelope;
 import com.cargosmart.b2b.edi.common.InterchangeEnvelope;
 import com.cargosmart.b2b.edi.common.Segment;
 import com.cargosmart.b2b.edi.common.Transaction;
+import com.cargosmart.b2b.edi.common.x12.X12Document;
+import com.cargosmart.b2b.edi.common.x12.X12GroupEnvelope;
+import com.cargosmart.b2b.edi.common.x12.X12InterchangeEnvelope;
+import com.cargosmart.b2b.edi.common.x12.X12Transaction;
 
 /**
- * A X12 Document builder to build a EDI document from file or String. 
+ * A X12 X12Document builder to build a EDI document from file or String. 
  *  
  * @author Raymond
  *
@@ -24,7 +28,7 @@ public class X12Builder {
 	 * It will build a EDI document from file.
 	 * 
 	 * @param file File to read from
-	 * @return Document 
+	 * @return X12Document 
 	 * @throws IOException when an I/O error prevents a document from being fully parsed
 	 */
 	public Document buildDocument(File file) throws IOException {
@@ -42,13 +46,13 @@ public class X12Builder {
 	 * It will build a EDI document from string.
 	 * 
 	 * @param content String to read from
-	 * @return Document
+	 * @return X12Document
 	 */
 	public Document buildDocument(String content) {
 		if (!content.startsWith("ISA")) {
-			throw new WrongDocuemntFormatException("Not a X12 Document");
+			throw new WrongDocuemntFormatException("Not a X12 X12Document");
 		}
-		Document document = new Document();
+		Document document = new X12Document();
 		String elementSeparator = content.substring(3, 4);
 		document.setElementSeparator(elementSeparator);
 		String[] isaSegment = content.split(Pattern.quote(elementSeparator), 18);
@@ -95,15 +99,15 @@ public class X12Builder {
 	}
 
     private Transaction buildTransaction(Segment segment) {
-		return new Transaction(segment);
+		return new X12Transaction(segment);
 	}
 
 	private GroupEnvelope buildGroupEnvelope(Segment segment) {
-		return new GroupEnvelope(segment);
+		return new X12GroupEnvelope(segment);
 	}
 
 	private InterchangeEnvelope buildInterchangeEnvelope(Segment segment) {
-        return new InterchangeEnvelope(segment);
+        return new X12InterchangeEnvelope(segment);
     }
 	
 	private Segment buildSegment(String segmentStr, Document document) {
