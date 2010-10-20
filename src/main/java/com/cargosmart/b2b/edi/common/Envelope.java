@@ -1,11 +1,9 @@
-package com.cargosmart.b2b.edi.common.x12;
+package com.cargosmart.b2b.edi.common;
 
 import java.util.List;
 
-import com.cargosmart.b2b.edi.common.CompositeField;
-import com.cargosmart.b2b.edi.common.Segment;
 
-abstract class Envelope {
+public abstract class Envelope {
 
 	protected Segment segment;
 

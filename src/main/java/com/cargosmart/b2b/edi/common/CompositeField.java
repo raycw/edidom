@@ -30,6 +30,10 @@ public class CompositeField {
 		fields.add(field);
 		return this;
 	}
+	
+	public Field getField(int position) {
+		return fields.get(position-1);
+	}
 
     public String getValue() {
     	return value;
@@ -38,4 +42,5 @@ public class CompositeField {
 	public void setValue(String value) {
 		this.value = value;
 	}
+	
 }

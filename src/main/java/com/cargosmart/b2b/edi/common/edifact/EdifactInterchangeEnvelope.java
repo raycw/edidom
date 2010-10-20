@@ -1,4 +1,4 @@
-package com.cargosmart.b2b.edi.common.x12;
+package com.cargosmart.b2b.edi.common.edifact;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +10,12 @@ import com.cargosmart.b2b.edi.common.GroupEnvelope;
 import com.cargosmart.b2b.edi.common.InterchangeEnvelope;
 import com.cargosmart.b2b.edi.common.Segment;
 
-public class X12InterchangeEnvelope extends Envelope implements InterchangeEnvelope {
+public class EdifactInterchangeEnvelope extends Envelope implements InterchangeEnvelope {
 
 	private Document document;
 	private List<GroupEnvelope> groups = new ArrayList<GroupEnvelope>();
 
-	public X12InterchangeEnvelope(Segment segment) {
+	public EdifactInterchangeEnvelope(Segment segment) {
 	    super(segment);
 	}
 
@@ -73,81 +73,81 @@ public class X12InterchangeEnvelope extends Envelope implements InterchangeEnvel
      * @see com.cargosmart.b2b.edi.common.x12.InterchangeEnvelopeI#getSenderQualifier()
      */
     public String getSenderQualifier() {
-        return getField(5).getValue().trim();
+        return getField(2).getField(2).getValue().trim();
     }
     /* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.x12.InterchangeEnvelopeI#setSenderQualifier(java.lang.String)
      */
     public void setSenderQualifier(String qualifier) {
-        getField(5).setValue(qualifier);
+        getField(2).getField(2).setValue(qualifier);
     }
 
     /* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.x12.InterchangeEnvelopeI#getSenderId()
      */
     public String getSenderId() {
-        return getField(6).getValue().trim();
+        return getField(2).getField(1).getValue().trim();
     }
     /* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.x12.InterchangeEnvelopeI#setSenderId(java.lang.String)
      */
     public void setSenderId(String id) {
-        getField(6).setValue(id);
+        getField(6).getField(1).setValue(id);
     }
 
     /* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.x12.InterchangeEnvelopeI#getReceiverQualifier()
      */
     public String getReceiverQualifier() {
-        return getField(7).getValue().trim();
+        return getField(3).getField(2).getValue().trim();
     }
     /* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.x12.InterchangeEnvelopeI#setReceiverQualifier(java.lang.String)
      */
     public void setReceiverQualifier(String qualifier) {
-        getField(7).setValue(qualifier);
+        getField(3).getField(2).setValue(qualifier);
     }
 
     /* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.x12.InterchangeEnvelopeI#getReceiverId()
      */
     public String getReceiverId() {
-        return getField(8).getValue().trim();
+        return getField(3).getField(1).getValue().trim();
     }
     
     /* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.x12.InterchangeEnvelopeI#setReceiverId(java.lang.String)
      */
     public void setReceiverId(String id) {
-    	getField(8).setValue(id);
+    	getField(3).getField(2).setValue(id);
     }
 
     /* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.x12.InterchangeEnvelopeI#getVersion()
      */
     public String getVersion() {
-        return getField(12).getValue().trim();
+        return getField(1).getField(2).getValue().trim();
     }
     
     /* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.x12.InterchangeEnvelopeI#setVersion(java.lang.String)
      */
     public void setVersion(String version) {
-    	getField(12).setValue(version);
+    	getField(1).getField(2).setValue(version);
     }
 
     /* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.x12.InterchangeEnvelopeI#getControlNumber()
      */
     public String getControlNumber() {
-        return getField(13).getValue().trim();
+        return getField(5).getValue().trim();
     }
     
     /* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.x12.InterchangeEnvelopeI#setControlNumber(java.lang.String)
      */
     public void setControlNumber(String controlNum) {
-    	getField(13).setValue(controlNum);
+    	getField(5).setValue(controlNum);
     }
 
 	/* (non-Javadoc)
