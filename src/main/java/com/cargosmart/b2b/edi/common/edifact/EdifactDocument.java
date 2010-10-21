@@ -43,7 +43,7 @@ public class EdifactDocument implements Document {
 	}
 
 	/* (non-Javadoc)
-     * @see com.cargosmart.b2b.edi.common.x12.DocumentI#setInterchangeEnvelope(com.cargosmart.b2b.edi.common.x12.InterchangeEnvelope)
+     * @see com.cargosmart.b2b.edi.common.DocumentI#setInterchangeEnvelope(com.cargosmart.b2b.edi.common.InterchangeEnvelope)
      */
 	public Document setInterchangeEnvelope(InterchangeEnvelope interchange) {
 		this.interchange = interchange;
@@ -52,56 +52,56 @@ public class EdifactDocument implements Document {
 	}
 
 	/* (non-Javadoc)
-     * @see com.cargosmart.b2b.edi.common.x12.DocumentI#getInterchangeEnvelope()
+     * @see com.cargosmart.b2b.edi.common.DocumentI#getInterchangeEnvelope()
      */
 	public InterchangeEnvelope getInterchangeEnvelope() {
 		return interchange;
 	}
 
 	/* (non-Javadoc)
-     * @see com.cargosmart.b2b.edi.common.x12.DocumentI#setElementSeparator(java.lang.String)
+     * @see com.cargosmart.b2b.edi.common.DocumentI#setElementSeparator(java.lang.String)
      */
     public void setElementSeparator(String elementSeparator) {
         this.elementSeparator = elementSeparator;        
     }
     
     /* (non-Javadoc)
-     * @see com.cargosmart.b2b.edi.common.x12.DocumentI#getElementSeparator()
+     * @see com.cargosmart.b2b.edi.common.DocumentI#getElementSeparator()
      */
     public String getElementSeparator() {
         return elementSeparator;
     }
 
     /* (non-Javadoc)
-     * @see com.cargosmart.b2b.edi.common.x12.DocumentI#getSegmentSeparator()
+     * @see com.cargosmart.b2b.edi.common.DocumentI#getSegmentSeparator()
      */
     public String getSegmentSeparator() {
         return segmentSeparator;
     }
 
     /* (non-Javadoc)
-     * @see com.cargosmart.b2b.edi.common.x12.DocumentI#setSegmentSeparator(java.lang.String)
+     * @see com.cargosmart.b2b.edi.common.DocumentI#setSegmentSeparator(java.lang.String)
      */
     public void setSegmentSeparator(String segmentSeparator) {
         this.segmentSeparator = segmentSeparator;
     }
 
     /* (non-Javadoc)
-     * @see com.cargosmart.b2b.edi.common.x12.DocumentI#getSubElementSeparator()
+     * @see com.cargosmart.b2b.edi.common.DocumentI#getSubElementSeparator()
      */
     public String getSubElementSeparator() {
         return subElementSeparator;
     }
 
     /* (non-Javadoc)
-     * @see com.cargosmart.b2b.edi.common.x12.DocumentI#setSubElementSeparator(java.lang.String)
+     * @see com.cargosmart.b2b.edi.common.DocumentI#setSubElementSeparator(java.lang.String)
      */
     public void setSubElementSeparator(String subElementSeparator) {
         this.subElementSeparator = subElementSeparator;
     }
 
 	/* (non-Javadoc)
-     * @see com.cargosmart.b2b.edi.common.x12.DocumentI#getSegment(java.lang.String)
+     * @see com.cargosmart.b2b.edi.common.DocumentI#getSegment(java.lang.String)
      */
 	public List<Segment> getSegment(String tag) {
 		List<Segment> segments = new ArrayList<Segment>();
