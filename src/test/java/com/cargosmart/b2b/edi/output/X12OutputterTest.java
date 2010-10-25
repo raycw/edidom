@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,6 +18,7 @@ import org.junit.Test;
 import com.cargosmart.b2b.edi.common.Document;
 import com.cargosmart.b2b.edi.common.GroupEnvelope;
 import com.cargosmart.b2b.edi.common.Segment;
+import com.cargosmart.b2b.edi.common.Transaction;
 import com.cargosmart.b2b.edi.input.X12Builder;
 import com.cargosmart.b2b.edi.input.X12BuilderTest;
 
@@ -39,6 +42,8 @@ public class X12OutputterTest {
     private static String x12_301;
     private Document doc;
     private Document doc_301;
+    private Document doc_x12_2_txn;
+    private Document doc_x12_3_txn;
     
     private static X12Builder x12builder;
     private static X12Outputter outputter;
@@ -66,6 +71,8 @@ public class X12OutputterTest {
 	public void setUp() throws Exception {
         doc = x12builder.buildDocument(X12DOC);
         doc_301 = x12builder.buildDocument(x12_301);
+        doc_x12_2_txn = x12builder.buildDocument(readFile("/X12_2_txn.txt"));
+        doc_x12_3_txn = x12builder.buildDocument(readFile("/X12_3_txn.txt"));
 	}
 
 	@After
@@ -96,6 +103,43 @@ public class X12OutputterTest {
 		}
 		String output = outputter.outputString(doc);
 		assertEquals(X12DOC_6010, output);
+	}
+	
+	@Test
+	public void testSplit() {
+	    List<Transaction> txns = new ArrayList<Transaction>();
+	    // 2 txn
+	    for (GroupEnvelope gs : doc_x12_2_txn.getInterchangeEnvelope().getGroups()) {
+            for (Transaction st : gs.getTransactions()) {
+                txns.add(st);
+            }
+        }
+	    for (Transaction transaction : txns) {
+            transaction.detach();
+        }
+	    for (Transaction txn : txns) {
+            doc_x12_2_txn.getInterchangeEnvelope().getGroups().get(0).addTransaction(txn);
+            doc_301.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).setControlNumber(txn.getControlNumber());
+            assertEquals(outputter.outputString(doc_301), outputter.outputString(doc_x12_2_txn));
+            txn.detach();
+        }
+	    
+	    // 3 txn
+	    txns.clear();
+        for (GroupEnvelope gs : doc_x12_3_txn.getInterchangeEnvelope().getGroups()) {
+            for (Transaction st : gs.getTransactions()) {
+                txns.add(st);
+            }
+        }
+        for (Transaction transaction : txns) {
+            transaction.detach();
+        }
+        for (Transaction txn : txns) {
+            doc_x12_3_txn.getInterchangeEnvelope().getGroups().get(0).addTransaction(txn);
+            doc_301.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).setControlNumber(txn.getControlNumber());
+            assertEquals(outputter.outputString(doc_301), outputter.outputString(doc_x12_3_txn));
+            txn.detach();
+        }
 	}
 
 }
