@@ -14,9 +14,29 @@ public class EdifactInterchangeEnvelope extends Envelope implements InterchangeE
 
 	private Document document;
 	private List<GroupEnvelope> groups = new ArrayList<GroupEnvelope>();
+	private Segment levelAInterchangeEnvelope;
 
 	public EdifactInterchangeEnvelope(Segment segment) {
 	    super(segment);
+	}
+	
+	public EdifactInterchangeEnvelope(Segment levelA, Segment levelB) {
+		super(levelB);
+		this.levelAInterchangeEnvelope = levelA;
+	}
+
+	/**
+	 * @return the levelAInterchangeEnvelope
+	 */
+	public Segment getLevelAInterchangeEnvelope() {
+		return levelAInterchangeEnvelope;
+	}
+
+	/**
+	 * @param levelAInterchangeEnvelope the levelAInterchangeEnvelope to set
+	 */
+	public void setLevelAInterchangeEnvelope(Segment levelAInterchangeEnvelope) {
+		this.levelAInterchangeEnvelope = levelAInterchangeEnvelope;
 	}
 
 	/* (non-Javadoc)
