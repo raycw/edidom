@@ -34,7 +34,7 @@ public class X12BuilderTest {
     private Document doc;
     private Document doc_301;
 
-    private static X12Builder x12builder;
+    private static EdiBuilder x12builder;
     
     @BeforeClass
     public static void onlyOnce() throws IOException {

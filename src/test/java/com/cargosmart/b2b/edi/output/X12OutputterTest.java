@@ -19,6 +19,7 @@ import com.cargosmart.b2b.edi.common.Document;
 import com.cargosmart.b2b.edi.common.GroupEnvelope;
 import com.cargosmart.b2b.edi.common.Segment;
 import com.cargosmart.b2b.edi.common.Transaction;
+import com.cargosmart.b2b.edi.input.EdiBuilder;
 import com.cargosmart.b2b.edi.input.X12Builder;
 import com.cargosmart.b2b.edi.input.X12BuilderTest;
 
@@ -45,7 +46,7 @@ public class X12OutputterTest {
     private Document doc_x12_2_txn;
     private Document doc_x12_3_txn;
     
-    private static X12Builder x12builder;
+    private static EdiBuilder x12builder;
     private static X12Outputter outputter;
 
     @BeforeClass
