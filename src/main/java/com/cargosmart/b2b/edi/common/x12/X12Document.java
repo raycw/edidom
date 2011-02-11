@@ -94,4 +94,19 @@ public class X12Document implements Document {
 		return segments;
 	}
 
+	/**
+	 * X12Document doesn't support release character
+	 * 
+	 * @return null
+	 */
+    public String getReleaseCharacter() {
+        return null;
+    }
+
+    /**
+     * X12Document doesn't support release character
+     */
+    public void setReleaseCharacter(String releaseCharacter) {
+        // do nothing
+    }
 }

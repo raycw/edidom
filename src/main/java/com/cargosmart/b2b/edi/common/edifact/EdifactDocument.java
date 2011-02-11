@@ -23,6 +23,7 @@ public class EdifactDocument implements Document {
     private String segmentSeparator;
     private String elementSeparator;
     private String subElementSeparator;
+    private String releaseCharacter;
 
 	public EdifactDocument() {
 
@@ -108,5 +109,13 @@ public class EdifactDocument implements Document {
 		segments.addAll(interchange.getSegment(tag));
 		return segments;
 	}
+
+    public String getReleaseCharacter() {
+        return releaseCharacter;
+    }
+
+    public void setReleaseCharacter(String releaseCharacter) {
+        this.releaseCharacter = releaseCharacter;
+    }
 
 }

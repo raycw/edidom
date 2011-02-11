@@ -31,7 +31,7 @@ public class X12Builder extends EdiBuilder {
 		if (!content.startsWith("ISA")) {
 			throw new WrongDocuemntFormatException("Not a X12 Document");
 		}
-		Document document = new X12Document();
+		X12Document document = new X12Document();
 		String elementSeparator = content.substring(3, 4);
 		document.setElementSeparator(elementSeparator);
 		String[] isaSegment = content.split(Pattern.quote(elementSeparator), 18);

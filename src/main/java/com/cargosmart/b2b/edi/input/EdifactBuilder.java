@@ -42,13 +42,23 @@ public class EdifactBuilder extends EdiBuilder {
 			document.setSegmentSeparator(levelAStrArray[6]);
 			document.setElementSeparator(levelAStrArray[2]);
 			document.setSubElementSeparator(levelAStrArray[1]);
+			document.setReleaseCharacter(levelAStrArray[4]);
 		} else {
-			document.setElementSeparator(content.substring(3, 4));
-			
+			//document.setElementSeparator(content.substring(3, 4));
+			//Assign defaults character. TODO - read content to recognize the delimiter 
+		    document.setSubElementSeparator(":");
+		    document.setElementSeparator("+");
+		    document.setReleaseCharacter("?");
+		    document.setSegmentSeparator("'");
 		}
-		
+		Segment segments[] = splitSegment(content, document); 
 		EdifactInterchangeEnvelope interchange;
 		return document;
 	}
+
+    private Segment[] splitSegment(String content, EdifactDocument document) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

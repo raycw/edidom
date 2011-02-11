@@ -66,4 +66,18 @@ public interface Document {
 
     public abstract List<Segment> getSegment(String tag);
 
+    /**
+     * Gets the document release character
+     * 
+     * @return release character
+     */
+    public abstract String getReleaseCharacter();
+    
+    /**
+     * Sets the document release character
+     * 
+     * @param releaseCharacter
+     */
+    public abstract void setReleaseCharacter(String releaseCharacter);
+
 }
