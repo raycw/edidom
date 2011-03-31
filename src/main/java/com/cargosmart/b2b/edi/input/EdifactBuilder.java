@@ -1,9 +1,16 @@
 package com.cargosmart.b2b.edi.input;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
 import com.cargosmart.b2b.edi.common.Document;
 import com.cargosmart.b2b.edi.common.Segment;
 import com.cargosmart.b2b.edi.common.edifact.EdifactDocument;
+import com.cargosmart.b2b.edi.common.edifact.EdifactGroupEnvelope;
 import com.cargosmart.b2b.edi.common.edifact.EdifactInterchangeEnvelope;
+import com.cargosmart.b2b.edi.common.edifact.EdifactTransaction;
+import com.cargosmart.b2b.edi.common.edifact.EmptyGroupEnvelope;
 
 /**
  * A X12 X12Document builder to build a EDI document from file or String.
@@ -51,14 +58,49 @@ public class EdifactBuilder extends EdiBuilder {
 		    document.setReleaseCharacter("?");
 		    document.setSegmentSeparator("'");
 		}
-		Segment segments[] = splitSegment(content, document); 
-		EdifactInterchangeEnvelope interchange;
+		String segments[] = splitSegment(content, document);
+		//assume 1st segment is interchange
+		EdifactInterchangeEnvelope interchange = new EdifactInterchangeEnvelope(levelA, buildSegment(segments[0], document));
+		document.setInterchangeEnvelope(interchange);
+		//check group
+		int txnIdex = 2;
+		EdifactGroupEnvelope group;
+		if (segments[1].startsWith("UNG")) {
+		    group = new EdifactGroupEnvelope(buildSegment(segments[1], document));
+		} else {
+		    group = new EmptyGroupEnvelope();
+		    txnIdex = 1;
+		}
+		interchange.addGroupEnvelope(group);
+		EdifactTransaction txn = new EdifactTransaction(buildSegment(segments[txnIdex], document));
+		group.addTransaction(txn);
+		
 		return document;
 	}
 
-    private Segment[] splitSegment(String content, EdifactDocument document) {
-        // TODO Auto-generated method stub
-        return null;
+    private Segment buildSegment(String segmentStr, EdifactDocument document) {
+        return new Segment(splitFields(segmentStr, document));
+    }
+    
+    private String[] splitSegment(String content, EdifactDocument document) {
+        return splitStringWithReleaseChar(content, document.getReleaseCharacter(), document.getSegmentSeparator());
+    }
+    
+    private String[] splitFields(String segmentStr, EdifactDocument document) {
+        return splitStringWithReleaseChar(segmentStr, document.getReleaseCharacter(), document.getElementSeparator());
     }
 
+    private String[] splitStringWithReleaseChar(String content,
+            String releaseChar, String delimiter) {
+        String[] segmentWithoutReleaseChar = content.split(Pattern.quote(delimiter));
+        List<String> segmentWithReleaseChar = new ArrayList<String>();
+        for (int i = 0; i < segmentWithoutReleaseChar.length; i++) {
+            String segmentStr = segmentWithoutReleaseChar[i];
+            while (segmentStr.endsWith(releaseChar)) {
+                segmentStr += segmentWithoutReleaseChar[++i];
+            }
+            segmentWithReleaseChar.add(segmentStr);
+        }
+        return segmentWithReleaseChar.toArray(new String[segmentWithReleaseChar.size()]);
+    }
 }
