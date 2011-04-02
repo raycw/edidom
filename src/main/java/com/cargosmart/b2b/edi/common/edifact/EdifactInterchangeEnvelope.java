@@ -160,7 +160,7 @@ public class EdifactInterchangeEnvelope extends Envelope implements InterchangeE
      * @see com.cargosmart.b2b.edi.common.InterchangeEnvelopeI#getControlNumber()
      */
     public String getControlNumber() {
-        return getField(5).getValue().trim();
+        return getField(5).getField(1).getValue().trim();
     }
     
     /* (non-Javadoc)

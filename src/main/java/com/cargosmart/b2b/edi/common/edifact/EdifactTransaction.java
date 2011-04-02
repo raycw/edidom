@@ -66,26 +66,26 @@ public class EdifactTransaction extends Envelope implements Transaction {
      * @see com.cargosmart.b2b.edi.common.Transaction#getType()
      */
 	public String getType() {
-		return getField(1).getValue().trim();
+		return getField(2).getField(1).getValue().trim();
 	}
 	/* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.Transaction#setType(java.lang.String)
      */
 	public void setType(String type) {
-		getField(1).setValue(type);
+		getField(2).getField(1).setValue(type);
 	}
 	
 	/* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.Transaction#getControlNumber()
      */
 	public String getControlNumber() {
-		return getField(2).getValue().trim();
+		return getField(1).getField(1).getValue().trim();
 	}
 	/* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.Transaction#setControlNumber(java.lang.String)
      */
 	public void setControlNumber(String controlNum) {
-		getField(2).setValue(controlNum);
+		getField(1).getField(1).setValue(controlNum);
 	}
 
 	/* (non-Javadoc)

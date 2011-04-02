@@ -18,6 +18,18 @@ public class Segment {
         }
 	}
 	
+	public Segment(String[][] fields) {
+		segmentTag = fields[0][0];
+		for (int i = 0; i < fields.length; i++) {
+			CompositeField cField = new CompositeField();
+			for (int j = 0; j < fields[i].length; j++) {
+				Field field = new Field(fields[i][j]);
+				cField.addField(field);
+			}
+			addCompositeField(cField);
+		}
+	}
+	
 	public Segment setTransaction(Transaction transaction) {
 		this.transaction = transaction;
 		return this;

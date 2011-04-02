@@ -74,7 +74,25 @@ public class EdifactBuilder extends EdiBuilder {
 		interchange.addGroupEnvelope(group);
 		EdifactTransaction txn = new EdifactTransaction(buildSegment(segments[txnIdex], document));
 		group.addTransaction(txn);
-		
+		for (int i = txnIdex+1; i < segments.length; i++) {
+			 Segment segment = buildSegment(segments[i], document);
+			 String segmentTag = segment.getSegmentTag();
+			 if (segmentTag.equals("UNG")) {
+				 group = new EdifactGroupEnvelope(segment);
+				 interchange.addGroupEnvelope(group);
+			 } else if (segmentTag.equals("UNH")) {
+				 txn = new EdifactTransaction(segment);
+				 group.addTransaction(txn);
+			 } else if (segmentTag.equals("UNT")) {
+				 // TODO add to transaction
+			 } else if (segmentTag.equals("UNE")) {
+				 // TODO add to group
+			 } else if (segmentTag.equals("UNZ")) {
+				 // TODO add to interchange
+			 } else {
+				 txn.addSegment(segment);
+			 }
+		}
 		return document;
 	}
 
@@ -86,8 +104,18 @@ public class EdifactBuilder extends EdiBuilder {
         return splitStringWithReleaseChar(content, document.getReleaseCharacter(), document.getSegmentSeparator());
     }
     
-    private String[] splitFields(String segmentStr, EdifactDocument document) {
-        return splitStringWithReleaseChar(segmentStr, document.getReleaseCharacter(), document.getElementSeparator());
+    private String[][] splitFields(String segmentStr, EdifactDocument document) {
+    	String[] fields = splitStringWithReleaseChar(segmentStr, document.getReleaseCharacter(), document.getElementSeparator());
+    	String[][] compositeFields = new String[fields.length][];
+    	for (int i = 0; i < fields.length; i++) {
+			String field = fields[i];
+			String[] cFields = splitStringWithReleaseChar(field, document.getReleaseCharacter(), document.getSubElementSeparator());
+			compositeFields[i] = new String[cFields.length];
+			for (int j = 0; j < cFields.length; j++) {
+				compositeFields[i][j] = cFields[j];
+			}
+		}
+        return compositeFields;
     }
 
     private String[] splitStringWithReleaseChar(String content,
