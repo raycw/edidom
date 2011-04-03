@@ -125,7 +125,7 @@ public class EdifactBuilder extends EdiBuilder {
         for (int i = 0; i < segmentWithoutReleaseChar.length; i++) {
             String segmentStr = segmentWithoutReleaseChar[i];
             while (segmentStr.endsWith(releaseChar)) {
-                segmentStr += segmentWithoutReleaseChar[++i];
+                segmentStr = segmentStr.substring(0, segmentStr.length()-1) + delimiter + segmentWithoutReleaseChar[++i];
             }
             segmentWithReleaseChar.add(segmentStr);
         }
