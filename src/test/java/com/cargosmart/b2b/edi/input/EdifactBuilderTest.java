@@ -68,6 +68,7 @@ public class EdifactBuilderTest {
 		assertEquals("006415160", interchange.getReceiverId());
 		assertEquals("1", interchange.getReceiverQualifier());
 		assertEquals("00000000000778", interchange.getControlNumber());
+		assertNotNull(interchange.getLevelAInterchangeEnvelope());
 	}
 	
 	@Test

@@ -34,6 +34,10 @@ public class CompositeField {
 	public Field getField(int position) {
 		return fields.get(position-1);
 	}
+	
+	public List<Field> getFields() {
+	    return fields;
+	}
 
     public String getValue() {
     	return value;
