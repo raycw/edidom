@@ -35,7 +35,7 @@ public class EdifactBuilder extends EdiBuilder {
 		EdifactDocument document = new EdifactDocument();
 		Segment levelA = null;
 		if (content.startsWith("UNA")) {
-			String[] levelAStrArray = { content.substring(3),
+			String[] levelAStrArray = { content.substring(0, 3),
 					content.substring(3, 4), content.substring(4, 5),
 					content.substring(5, 6), content.substring(6, 7),
 					content.substring(7, 8), content.substring(8, 10) };
