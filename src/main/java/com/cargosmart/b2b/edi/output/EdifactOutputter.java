@@ -1,6 +1,7 @@
 package com.cargosmart.b2b.edi.output;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.cargosmart.b2b.edi.common.CompositeField;
 import com.cargosmart.b2b.edi.common.Document;
@@ -22,6 +23,9 @@ import com.cargosmart.b2b.edi.common.edifact.EmptyGroupEnvelope;
  */
 public class EdifactOutputter {
     public String outputString(Document document) {
+        // Create regex for release character
+        releasePattern = Pattern.compile("([" + document.getElementSeparator() + document.getSegmentSeparator() + document.getSubElementSeparator() + "])");
+        
         StringBuilder strBuilder = new StringBuilder();
         // Interchange
         EdifactInterchangeEnvelope interchange = (EdifactInterchangeEnvelope) document.getInterchangeEnvelope();
@@ -76,15 +80,17 @@ public class EdifactOutputter {
 
     private void writeSegment(StringBuilder strBuilder, Document document,
             List<CompositeField> fields) {
-        strBuilder.append(fields.get(0).getField(1).getValue());
+        strBuilder.append(releasePattern.matcher(fields.get(0).getField(1).getValue()).replaceAll(document.getReleaseCharacter()+"$0"));
         for (int i = 1; i < fields.size(); i++) {
             List<Field> subFields = fields.get(i).getFields();
-            strBuilder.append(document.getElementSeparator()).append(subFields.get(0).getValue());
+            strBuilder.append(document.getElementSeparator()).append(releasePattern.matcher(subFields.get(0).getValue()).replaceAll(document.getReleaseCharacter()+"$0"));
             for (int j = 1; j < subFields.size(); j++) {
-                strBuilder.append(document.getSubElementSeparator()).append(subFields.get(j).getValue());         
+                strBuilder.append(document.getSubElementSeparator()).append(releasePattern.matcher(subFields.get(j).getValue()).replaceAll(document.getReleaseCharacter()+"$0"));         
             }
         }
         strBuilder.append(document.getSegmentSeparator());
     }
+    
+    private Pattern releasePattern;
 
 }
