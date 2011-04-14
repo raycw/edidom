@@ -17,6 +17,15 @@ public class EdifactTransaction extends Envelope implements Transaction {
 	public EdifactTransaction(Segment segment) {
 		super(segment);
 	}
+	
+	/**
+	 * Copy constructor
+	 * 
+	 * @param orig
+	 */
+	public EdifactTransaction(EdifactTransaction orig) {
+		super(new Segment(orig.segment));
+	}
 
 	public Transaction setGroupEnvelope(GroupEnvelope group) {
 		this.group = group;

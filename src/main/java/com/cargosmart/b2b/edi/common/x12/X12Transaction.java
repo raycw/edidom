@@ -17,6 +17,15 @@ public class X12Transaction extends Envelope implements Transaction {
 	public X12Transaction(Segment segment) {
 		super(segment);
 	}
+	
+	/**
+	 * Copy constructor
+	 * 
+	 * @param orig
+	 */
+	public X12Transaction(X12Transaction orig) {
+		super(new Segment(orig.segment));
+	}
 
 	public Transaction setGroupEnvelope(GroupEnvelope group) {
 		this.group = group;

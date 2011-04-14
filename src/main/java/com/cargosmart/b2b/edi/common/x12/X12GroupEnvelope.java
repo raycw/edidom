@@ -18,6 +18,15 @@ public class X12GroupEnvelope extends Envelope implements GroupEnvelope{
 	public X12GroupEnvelope(Segment segment) {
 		super(segment);
 	}
+	
+	/**
+	 * Copy constructor
+	 * 
+	 * @param orig
+	 */
+	public X12GroupEnvelope(X12GroupEnvelope orig) {
+		super(new Segment(orig.segment));
+	}
 
 	public GroupEnvelope setInterchangeEnvelope(InterchangeEnvelope interchangeEnvelope) {
 		this.interchangeEnvelope = interchangeEnvelope;

@@ -1,6 +1,8 @@
 package com.cargosmart.b2b.edi.common.x12;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -14,9 +16,6 @@ import com.cargosmart.b2b.edi.common.Field;
 import com.cargosmart.b2b.edi.common.GroupEnvelope;
 import com.cargosmart.b2b.edi.common.Segment;
 import com.cargosmart.b2b.edi.common.Transaction;
-import com.cargosmart.b2b.edi.common.x12.X12Document;
-import com.cargosmart.b2b.edi.common.x12.X12GroupEnvelope;
-import com.cargosmart.b2b.edi.common.x12.X12InterchangeEnvelope;
 
 public class SegmentTest {
 
@@ -96,6 +95,16 @@ public class SegmentTest {
     public void testGetSegmentFromDocument() {
     	List<Segment> segments = document.getSegment("ISA");
     	assertEquals(1, segments.size());
+    }
+    
+    @Test
+    public void testCopyConstructor() {
+    	Segment copy = new Segment(segment);
+    	assertNotSame(copy, segment);
+    	assertEquals(segment.getSegmentTag(), copy.getSegmentTag());
+    	assertEquals(segment.getField(1), copy.getField(1));
+    	assertNull(copy.getTransaction());
+    	assertNotSame(segment.getFields(), copy.getFields());
     }
 
 }

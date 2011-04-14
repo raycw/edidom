@@ -24,6 +24,16 @@ public class EdifactInterchangeEnvelope extends Envelope implements InterchangeE
 		super(levelB);
 		this.levelAInterchangeEnvelope = levelA;
 	}
+	
+	/**
+	 * Copy constructor
+	 * 
+	 * @param orig
+	 */
+	public EdifactInterchangeEnvelope(EdifactInterchangeEnvelope orig) {
+		super(new Segment(orig.segment));
+		this.levelAInterchangeEnvelope = new Segment(orig.levelAInterchangeEnvelope);
+	}
 
 	/**
 	 * @return the levelAInterchangeEnvelope
@@ -167,7 +177,7 @@ public class EdifactInterchangeEnvelope extends Envelope implements InterchangeE
      * @see com.cargosmart.b2b.edi.common.InterchangeEnvelopeI#setControlNumber(java.lang.String)
      */
     public void setControlNumber(String controlNum) {
-    	getField(5).setValue(controlNum);
+    	getField(5).getField(1).setValue(controlNum);
     }
 
 	/* (non-Javadoc)

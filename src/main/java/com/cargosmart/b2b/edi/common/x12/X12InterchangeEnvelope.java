@@ -18,6 +18,15 @@ public class X12InterchangeEnvelope extends Envelope implements InterchangeEnvel
 	public X12InterchangeEnvelope(Segment segment) {
 	    super(segment);
 	}
+	
+	/**
+	 * Copy constructor
+	 * 
+	 * @param orig
+	 */
+	public X12InterchangeEnvelope(X12InterchangeEnvelope orig) {
+		super(new Segment(orig.segment));
+	}
 
 	/* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.x12.InterchangeEnvelopeI#setDocument(com.cargosmart.b2b.edi.common.Document)

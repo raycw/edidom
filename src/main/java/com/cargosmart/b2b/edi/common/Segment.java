@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Segment {
+public final class Segment {
 
     private Transaction transaction;
 	private List<CompositeField> fields = new ArrayList<CompositeField>();
@@ -28,6 +28,16 @@ public class Segment {
 			}
 			addCompositeField(cField);
 		}
+	}
+	
+	/**
+	 * Copy constructor
+	 * 
+	 * @param orig to copy
+	 */
+	public Segment(Segment orig) {
+		this.segmentTag = orig.segmentTag;
+		this.fields = new ArrayList<CompositeField>(orig.fields);
 	}
 	
 	public Segment setTransaction(Transaction transaction) {

@@ -3,15 +3,12 @@ package com.cargosmart.b2b.edi.common.edifact;
 import java.util.List;
 
 import com.cargosmart.b2b.edi.common.CompositeField;
-import com.cargosmart.b2b.edi.common.GroupEnvelope;
-import com.cargosmart.b2b.edi.common.InterchangeEnvelope;
 import com.cargosmart.b2b.edi.common.Segment;
-import com.cargosmart.b2b.edi.common.Transaction;
 
 public class EmptyGroupEnvelope extends EdifactGroupEnvelope {
 
 	public EmptyGroupEnvelope() {
-		super(null);
+		super((Segment)null);
 	}
 
 	/* (non-Javadoc)

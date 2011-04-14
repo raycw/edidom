@@ -18,6 +18,15 @@ public class EdifactGroupEnvelope extends Envelope implements GroupEnvelope{
 	public EdifactGroupEnvelope(Segment segment) {
 		super(segment);
 	}
+	
+	/**
+	 * Copy constructor
+	 * 
+	 * @param orig
+	 */
+	public EdifactGroupEnvelope(EdifactGroupEnvelope orig) {
+		super(new Segment(orig.segment));
+	}
 
 	public GroupEnvelope setInterchangeEnvelope(InterchangeEnvelope interchangeEnvelope) {
 		this.interchangeEnvelope = interchangeEnvelope;
@@ -68,65 +77,65 @@ public class EdifactGroupEnvelope extends Envelope implements GroupEnvelope{
      * @see com.cargosmart.b2b.edi.common.GroupEnvelope#getFunctionalCode()
      */
 	public String getFunctionalCode() {
-		return getField(1).getValue().trim();
+		return getField(1).getField(1).getValue().trim();
 	}
 	/* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.GroupEnvelope#setFunctionalCode(java.lang.String)
      */
 	public void setFunctionalCode(String code) {
-		getField(1).setValue(code);
+		getField(1).getField(1).setValue(code);
 	}
 
 	/* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.GroupEnvelope#getSenderCode()
      */
 	public String getSenderCode() {
-		return getField(2).getValue().trim();
+		return getField(2).getField(1).getValue().trim();
 	}
 	/* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.GroupEnvelope#setSenderCode(java.lang.String)
      */
 	public void setSenderCode(String sender) {
-		getField(2).setValue(sender);
+		getField(2).getField(1).setValue(sender);
 	}
 
 	/* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.GroupEnvelope#getReceiverCode()
      */
 	public String getReceiverCode() {
-		return getField(3).getValue().trim();
+		return getField(3).getField(1).getValue().trim();
 	}
 	/* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.GroupEnvelope#setReceiverCode(java.lang.String)
      */
 	public void setReceiverCode(String receiver) {
-		getField(3).setValue(receiver);
+		getField(3).getField(1).setValue(receiver);
 	}
 
 	/* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.GroupEnvelope#getControlNumber()
      */
 	public String getControlNumber() {
-		return getField(6).getValue().trim();
+		return getField(5).getField(1).getValue().trim();
 	}
 	/* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.GroupEnvelope#setControlNumber(java.lang.String)
      */
 	public void setControlNumber(String controlNum) {
-		getField(6).setValue(controlNum);
+		getField(5).getField(1).setValue(controlNum);
 	}
 
 	/* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.GroupEnvelope#getVersion()
      */
 	public String getVersion() {
-		return getField(8).getValue().trim();
+		return getField(8).getField(2).getValue().trim();
 	}
 	/* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.GroupEnvelope#setVersion(java.lang.String)
      */
 	public void setVersion(String version) {
-		getField(8).setValue(version);
+		getField(8).getField(2).setValue(version);
 	}
 
 	/* (non-Javadoc)

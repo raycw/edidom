@@ -22,13 +22,23 @@ public class EdifactOutputterTest {
         "DTM+3:20060515:102'" +
         "UNT+4+00000000000117'" + 
         "UNZ+1+00000000000778'";
-    
-    public static final String SIMPLE_EDIFACT_WO_UNA =
+
+    public static final String SIMPLE_EDI_WO_UNA_UNG = 
         "UNB+UNOA:1+005435656:1+006415160:1+060515:1434+00000000000778'" + 
         "UNH+00000000000117+INVOIC:D:97B:UN'" + 
         "BGM+380+?????+?+?:?:?'?'+9'" + 
         "DTM+3:20060515:102'" +
-        "UNT+4+00000000000117'" + 
+        "UNT+4+00000000000117'" +
+        "UNZ+1+00000000000778'";
+    
+    public static final String SIMPLE_EDIFACT_WO_UNA =
+        "UNB+UNOA:1+005435656:1+006415160:1+060515:1434+00000000000778'" + 
+        "UNG+INVOIC+CARGOSMART:01+EXAMPLE:ZZ+110414:2138+268877+UN+D:97B'" +
+        "UNH+00000000000117+INVOIC:D:97B:UN'" + 
+        "BGM+380+?????+?+?:?:?'?'+9'" + 
+        "DTM+3:20060515:102'" +
+        "UNT+4+00000000000117'" +
+        "UNE+1+268877'" +
         "UNZ+1+00000000000778'";
     
     private Document doc;
@@ -55,5 +65,10 @@ public class EdifactOutputterTest {
         
         output = outputter.outputString(doc_wo_una);
         assertEquals(SIMPLE_EDIFACT_WO_UNA, output);
+    }
+    
+    @Test
+    public void testAddGroupEnvelope() {
+    	
     }
 }
