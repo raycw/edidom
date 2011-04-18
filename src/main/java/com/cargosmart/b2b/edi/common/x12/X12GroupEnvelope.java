@@ -149,4 +149,8 @@ public class X12GroupEnvelope extends Envelope implements GroupEnvelope{
 		return segments;
 	}
 
+	public GroupEnvelope copy() {
+		return new X12GroupEnvelope(this);
+	}
+
 }

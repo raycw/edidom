@@ -109,4 +109,8 @@ public class EdifactTransaction extends Envelope implements Transaction {
 		}
 		return segments;
 	}
+
+	public Transaction copy() {
+		return new EdifactTransaction(this);
+	}
 }

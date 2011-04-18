@@ -35,4 +35,11 @@ public interface Transaction {
     public abstract List<Segment> getSegments(String tag);
 
     public abstract List<CompositeField> getFields();
+    
+    /**
+     * Shallow copy without relationship.
+     * 
+     * @return copy of this instance
+     */
+    public abstract Transaction copy();
 }

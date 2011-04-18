@@ -27,6 +27,17 @@ public class X12Document implements Document {
 
 	}
 	
+	/**
+	 * Copy constructor
+	 * 
+	 * @param orig
+	 */
+	public X12Document(X12Document orig) {
+		this.segmentSeparator = orig.segmentSeparator;
+		this.elementSeparator = orig.elementSeparator;
+		this.subElementSeparator = orig.subElementSeparator;
+	}
+	
 	/* (non-Javadoc)
      * @see com.cargosmart.b2b.edi.common.x12.DocumentI#setInterchangeEnvelope(com.cargosmart.b2b.edi.common.x12.InterchangeEnvelope)
      */
@@ -109,4 +120,8 @@ public class X12Document implements Document {
     public void setReleaseCharacter(String releaseCharacter) {
         // do nothing
     }
+
+	public Document copy() {
+		return new X12Document(this);
+	}
 }

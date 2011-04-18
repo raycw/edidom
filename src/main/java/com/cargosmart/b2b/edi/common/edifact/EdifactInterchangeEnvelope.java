@@ -191,4 +191,8 @@ public class EdifactInterchangeEnvelope extends Envelope implements InterchangeE
 		return segments;
 	}
 
+	public InterchangeEnvelope copy() {
+		return new EdifactInterchangeEnvelope(this);
+	}
+
 }

@@ -109,4 +109,8 @@ public class X12Transaction extends Envelope implements Transaction {
 		}
 		return segments;
 	}
+
+	public Transaction copy() {
+		return new X12Transaction(this);
+	}
 }

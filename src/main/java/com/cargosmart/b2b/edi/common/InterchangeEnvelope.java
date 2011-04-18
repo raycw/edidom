@@ -52,4 +52,11 @@ public interface InterchangeEnvelope {
     public abstract List<Segment> getSegment(String tag);
 
     public abstract List<CompositeField> getFields();
+    
+    /**
+     * Shallow copy without relationship
+     * 
+     * @return copy of current instance
+     */
+    public abstract InterchangeEnvelope copy();
 }

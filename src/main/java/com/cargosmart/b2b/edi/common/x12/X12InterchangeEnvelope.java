@@ -170,4 +170,8 @@ public class X12InterchangeEnvelope extends Envelope implements InterchangeEnvel
 		return segments;
 	}
 
+	public InterchangeEnvelope copy() {
+		return new X12InterchangeEnvelope(this);
+	}
+
 }

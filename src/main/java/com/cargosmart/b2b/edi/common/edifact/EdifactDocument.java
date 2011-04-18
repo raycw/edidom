@@ -29,6 +29,13 @@ public class EdifactDocument implements Document {
 
 	}
 	
+	public EdifactDocument(EdifactDocument orig) {
+		this.segmentSeparator = orig.segmentSeparator;
+		this.elementSeparator = orig.elementSeparator;
+		this.subElementSeparator = orig.subElementSeparator;
+		this.releaseCharacter = orig.releaseCharacter;
+	}
+	
 	/**
 	 * @return the level
 	 */
@@ -117,5 +124,9 @@ public class EdifactDocument implements Document {
     public void setReleaseCharacter(String releaseCharacter) {
         this.releaseCharacter = releaseCharacter;
     }
+
+	public Document copy() {
+		return new EdifactDocument(this);
+	}
 
 }

@@ -63,4 +63,11 @@ public interface GroupEnvelope {
     public abstract List<Segment> getSegment(String tag);
 
     public abstract List<CompositeField> getFields();
+    
+    /**
+     * Shallow copy without relationship
+     * 
+     * @return copy of this instance
+     */
+    public abstract GroupEnvelope copy();
 }

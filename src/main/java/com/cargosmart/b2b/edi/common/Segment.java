@@ -76,5 +76,14 @@ public final class Segment {
 		field.setSegment(this);
 		return this;
 	}
+	
+	/**
+	 * Shallow copy without relationship
+	 * 
+	 * @return copy of this instance
+	 */
+	public Segment copy() {
+		return new Segment(this);
+	}
 
 }

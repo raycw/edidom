@@ -2,8 +2,6 @@ package com.cargosmart.b2b.edi.common;
 
 import java.util.List;
 
-import com.cargosmart.b2b.edi.common.InterchangeEnvelope;
-
 public interface Document {
 
     /**
@@ -79,5 +77,12 @@ public interface Document {
      * @param releaseCharacter
      */
     public abstract void setReleaseCharacter(String releaseCharacter);
-
+    
+    /**
+     * Shallow copy itself without any relationship
+     * 
+     * @return a copy of Document
+     */
+    public abstract Document copy();
+    
 }

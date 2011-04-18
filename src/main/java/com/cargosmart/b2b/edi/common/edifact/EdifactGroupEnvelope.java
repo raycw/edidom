@@ -149,4 +149,8 @@ public class EdifactGroupEnvelope extends Envelope implements GroupEnvelope{
 		return segments;
 	}
 
+	public GroupEnvelope copy() {
+		return new EdifactGroupEnvelope(this);
+	}
+
 }
