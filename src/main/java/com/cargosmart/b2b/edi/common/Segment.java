@@ -37,7 +37,9 @@ public final class Segment {
 	 */
 	public Segment(Segment orig) {
 		this.segmentTag = orig.segmentTag;
-		this.fields = new ArrayList<CompositeField>(orig.fields);
+		for (CompositeField cField : orig.fields) {
+            this.fields.add(cField.copy());
+        }
 	}
 	
 	public Segment setTransaction(Transaction transaction) {

@@ -122,7 +122,7 @@ public class EdifactInterchangeEnvelope extends Envelope implements InterchangeE
      * @see com.cargosmart.b2b.edi.common.InterchangeEnvelopeI#setSenderId(java.lang.String)
      */
     public void setSenderId(String id) {
-        getField(6).getField(1).setValue(id);
+        getField(2).getField(1).setValue(id);
     }
 
     /* (non-Javadoc)
@@ -149,7 +149,7 @@ public class EdifactInterchangeEnvelope extends Envelope implements InterchangeE
      * @see com.cargosmart.b2b.edi.common.InterchangeEnvelopeI#setReceiverId(java.lang.String)
      */
     public void setReceiverId(String id) {
-    	getField(3).getField(2).setValue(id);
+    	getField(3).getField(1).setValue(id);
     }
 
     /* (non-Javadoc)

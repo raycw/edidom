@@ -18,7 +18,16 @@ public class CompositeField {
 		return this;
 	}
 	
-	public Segment getSegment() {
+	public CompositeField(CompositeField orig) {
+	    for (Field field : orig.fields) {
+            this.fields.add(field.copy());
+        }
+	}
+	
+	public CompositeField() {
+    }
+
+    public Segment getSegment() {
 		return segment;
 	}
 	
@@ -46,5 +55,9 @@ public class CompositeField {
 	public void setValue(String value) {
 		this.value = value;
 	}
+
+    public CompositeField copy() {
+        return new CompositeField(this);
+    }
 	
 }

@@ -5,11 +5,14 @@ public class Field extends CompositeField {
 
 	private Segment segment;
 	public Field() {
-		
 	}
 	
 	public Field(String value) {
 		this.value = value;
+	}
+	
+	public Field(Field orig) {
+	    this.value = orig.value;
 	}
 	
 	public CompositeField setSegment(Segment segment) {
@@ -29,6 +32,11 @@ public class Field extends CompositeField {
 	@Override
 	public CompositeField addField(Field field) {
 		return this;
+	}
+	
+	@Override
+	public Field copy() {
+	    return new Field(this);
 	}
 
 }

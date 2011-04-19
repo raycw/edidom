@@ -102,7 +102,7 @@ public class SegmentTest {
     	Segment copy = new Segment(segment);
     	assertNotSame(copy, segment);
     	assertEquals(segment.getSegmentTag(), copy.getSegmentTag());
-    	assertEquals(segment.getField(1), copy.getField(1));
+    	assertEquals(segment.getField(1).getValue(), copy.getField(1).getValue());
     	assertNull(copy.getTransaction());
     	assertNotSame(segment.getFields(), copy.getFields());
     }
