@@ -11,31 +11,31 @@ import com.cargosmart.b2b.edi.output.EdifactOutputter;
 
 public class PartnerId {
 
-    private static final String INTTRA_CT =
-        "UNB+UNOC:2+INTTRA:ZZZ+821460:ZZZ+110419:0540+6771'" + 
+    private static final String CT =
+        "UNB+UNOC:2+IITTRR:ZZZ+999999:ZZZ+110419:0540+6771'" + 
         "UNH+1+IFTSTA:D:99B:UN'" + 
         "BGM+23+315+9'" + 
-        "DTM+137:201104172300:203'" + 
-        "NAD+CA+MSCU:160:87'" + 
-        "RFF+BN:177XAVAVXB1601'" + 
-        "RFF+BM:MSCUT4899757'" + 
+        "DTM+137:209904172300:203'" + 
+        "NAD+CA+ABCD:160:87'" + 
+        "RFF+BN:1234567890AB'" + 
+        "RFF+BM:1234567890AB'" + 
         "CNI+1'" + 
         "STS+1+VD::22'" + 
-        "DTM+334:201104172300:203'" + 
+        "DTM+334:209904172300:203'" + 
         "LOC+175+CNXGG:139:6:XINGANG'" + 
-        "TDT+20+1116R+1++:172+++9441001:146:11:MSC PALOMA'" + 
+        "TDT+20+9996R+1++:172+++9999999:146:11:DUMP VESSEL'" + 
         "LOC+9+CNXGG:139:6'" + 
-        "DTM+133:201104170000:203'" + 
+        "DTM+133:209904170000:203'" + 
         "LOC+11+USLGB:139:6'" + 
-        "DTM+132:201105120000:203'" + 
+        "DTM+132:209905120000:203'" + 
         "LOC+7+USHOU:139:6'" + 
-        "EQD+CN+MEDU4224146+42G0:102:5+++5'" + 
+        "EQD+CN+ABCD1234567+42G0:102:5+++5'" + 
         "UNT+18+1'" + 
         "UNZ+1+6771'";
     
     public void moveToGroup() {
         EdifactBuilder builder = new EdifactBuilder();
-        Document doc = builder.buildDocument(INTTRA_CT);
+        Document doc = builder.buildDocument(CT);
         String receiverId = doc.getInterchangeEnvelope().getReceiverId();
         //UNG+IFTSTA+CARGOSMART:ZZZ+:ZZZ+:+58909+UN+D:96B'
         //create dummy group that contains interchange receiver id
@@ -58,7 +58,7 @@ public class PartnerId {
     
     public void moveToRFF() {
         EdifactBuilder builder = new EdifactBuilder();
-        Document doc = builder.buildDocument(INTTRA_CT);
+        Document doc = builder.buildDocument(CT);
         String receiverId = doc.getInterchangeEnvelope().getReceiverId();
         List<Transaction> txns = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions();
         //change interchange id to INTTRA
