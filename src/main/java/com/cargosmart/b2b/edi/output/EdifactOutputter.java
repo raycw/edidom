@@ -7,9 +7,9 @@ import com.cargosmart.b2b.edi.common.CompositeField;
 import com.cargosmart.b2b.edi.common.Document;
 import com.cargosmart.b2b.edi.common.Field;
 import com.cargosmart.b2b.edi.common.GroupEnvelope;
-import com.cargosmart.b2b.edi.common.InterchangeEnvelope;
 import com.cargosmart.b2b.edi.common.Segment;
 import com.cargosmart.b2b.edi.common.Transaction;
+import com.cargosmart.b2b.edi.common.edifact.EdifactDocument;
 import com.cargosmart.b2b.edi.common.edifact.EdifactInterchangeEnvelope;
 import com.cargosmart.b2b.edi.common.edifact.EmptyGroupEnvelope;
 
