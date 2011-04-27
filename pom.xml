@@ -4,9 +4,9 @@
   <artifactId>edi-common</artifactId>
   <name>edi-common</name>
   <version>0.1</version>
-  <url>https://code.google.com/p/edi-common/</url>
+  <url>https://github.com/raycw/edi-common</url>
   <scm>
-  	<url>https://edi-common.googlecode.com/svn/trunk</url>
+  	<url>https://raycw@github.com/raycw/edi-common.git</url>
   </scm>
   <build>
   	<plugins>
