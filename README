@@ -1,0 +1,1 @@
+Inspired by JDOM, *edi-common* is both Java-centric and Java-optimized. It behaves like Java, it uses Java collections, it is completely natural API for current Java developers, and it provides a low-cost entry point for using EDI. 
