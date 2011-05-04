@@ -8,9 +8,7 @@ public class CompositeField {
 
 	private Segment segment;
 	private List<Field> fields = new ArrayList<Field>();
-    protected String value;
-	
-	public CompositeField setSegment(Segment segment) {
+    public CompositeField setSegment(Segment segment) {
 		this.segment = segment;
 		for (Field field : fields) {
 			field.setSegment(segment);
@@ -49,11 +47,34 @@ public class CompositeField {
 	}
 
     public String getValue() {
-    	return value;
+        Field field = fields.get(0);
+        if (field != null) {
+            return field.getValue();
+        }
+    	return null;
     }
 
 	public void setValue(String value) {
-		this.value = value;
+        Field field = fields.get(0);
+        if (field != null) {
+            field.setValue(value);
+        }
+	}
+	
+	public String[] getValues() {
+	    String[] values = new String[fields.size()];
+	    for (int i = 0; i < fields.size(); i++) {
+            values[i] = fields.get(i).getValue();
+        }
+	    return values;
+	}
+	
+	public void setValues(String[] values) {
+	    if (fields.size() == values.length) {
+    	    for (int i = 0; i < values.length; i++) {
+    	        fields.get(i).setValue(values[i]);
+            }
+	    }
 	}
 
     public CompositeField copy() {
