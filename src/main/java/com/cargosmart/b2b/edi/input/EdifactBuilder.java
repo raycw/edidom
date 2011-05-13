@@ -120,7 +120,7 @@ public class EdifactBuilder extends EdiBuilder {
 
     private String[] splitStringWithReleaseChar(String content,
             String releaseChar, String delimiter) {
-        String[] segmentWithoutReleaseChar = content.split(Pattern.quote(delimiter));
+        String[] segmentWithoutReleaseChar = content.split(Pattern.quote(delimiter), -1);
         List<String> segmentWithReleaseChar = new ArrayList<String>();
         for (int i = 0; i < segmentWithoutReleaseChar.length; i++) {
             String segmentStr = segmentWithoutReleaseChar[i];

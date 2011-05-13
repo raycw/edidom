@@ -52,7 +52,7 @@ public class EdifactBuilderTest {
 	public void testBuildDocumentString() {
 		assertEquals("+", doc.getElementSeparator());
 		assertEquals(":", doc.getSubElementSeparator());
-		assertEquals("'\n", doc.getSegmentSeparator());
+		assertEquals("'", doc.getSegmentSeparator());
 		assertEquals("?", doc.getReleaseCharacter());
 		assertNotNull(doc.getInterchangeEnvelope());
 		assertEquals(1, doc.getSegment("BGM").size());
@@ -100,6 +100,6 @@ public class EdifactBuilderTest {
 		assertEquals("792820524", segments.get(0).getField(2).getField(1).getValue());
 		assertEquals("", segments.get(0).getField(2).getField(2).getValue());
 		assertEquals("CUMMINS MID-RANGE ENGINE PLANT +M", segments.get(0).getField(4).getField(1).getValue());
-		assertEquals("GENERAL WIDGET COMPANY ATTN:Raymond", segments.get(1).getField(4).getField(1).getValue());
+		assertEquals("GENERAL WIDGET COMPANY' ATTN:Raymond:", segments.get(1).getField(4).getField(1).getValue());
 	}
 }
