@@ -101,5 +101,10 @@ public class EmptyGroupEnvelope extends EdifactGroupEnvelope {
 	public List<CompositeField> getFields() {
 		return null;
 	}
+	
+	@Override
+	public EmptyGroupEnvelope copy() {
+	    return new EmptyGroupEnvelope();
+	}
 
 }
