@@ -20,6 +20,11 @@ import com.cargosmart.b2b.edi.common.x12.X12Transaction;
  */
 public class X12Builder extends EdiBuilder {
 
+    /*
+     * for performance boost
+     */
+    private Pattern elementSeparator;
+    
 	/**
 	 * It will build a EDI document from string.
 	 * 
@@ -42,6 +47,8 @@ public class X12Builder extends EdiBuilder {
 		String subElementSeparator = isaSegment[16].substring(0, 1);
 		document.setSegmentSeparator(segmentSeparator);
 		document.setSubElementSeparator(subElementSeparator);
+		
+		this.elementSeparator = Pattern.compile(document.getElementSeparator(), Pattern.LITERAL);
 		
 		String[] segments = content.split(Pattern.quote(segmentSeparator));
 		
@@ -94,6 +101,6 @@ public class X12Builder extends EdiBuilder {
 	}
 
 	private String[] splitFields(String content, Document document) {
-		return content.split(Pattern.quote(document.getElementSeparator()));
+		return elementSeparator.split(content);
 	}
 }

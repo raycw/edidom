@@ -20,6 +20,13 @@ import com.cargosmart.b2b.edi.common.edifact.EmptyGroupEnvelope;
  */
 public class EdifactBuilder extends EdiBuilder {
 
+    /*
+     * For performance boosting
+     */
+    private Pattern segmentSeparator;
+    private Pattern elementSeparator;
+    private Pattern subElementSeparator;
+    
 	/**
 	 * It will build a EDI document from string.
 	 * 
@@ -58,6 +65,10 @@ public class EdifactBuilder extends EdiBuilder {
 		    document.setReleaseCharacter("?");
 		    document.setSegmentSeparator("'");
 		}
+		segmentSeparator = Pattern.compile(document.getSegmentSeparator(), Pattern.LITERAL);
+		elementSeparator = Pattern.compile(document.getElementSeparator(), Pattern.LITERAL);
+		subElementSeparator = Pattern.compile(document.getSubElementSeparator(), Pattern.LITERAL);
+		
 		String segments[] = splitSegment(content, document);
 		//assume 1st segment is interchange
 		EdifactInterchangeEnvelope interchange = new EdifactInterchangeEnvelope(levelA, buildSegment(segments[0], document));
@@ -101,15 +112,15 @@ public class EdifactBuilder extends EdiBuilder {
     }
     
     private String[] splitSegment(String content, EdifactDocument document) {
-        return splitStringWithReleaseChar(content, document.getReleaseCharacter(), document.getSegmentSeparator(), false);
+        return splitStringWithReleaseChar(content, document.getReleaseCharacter(), segmentSeparator, false);
     }
     
     private String[][] splitFields(String segmentStr, EdifactDocument document) {
-    	String[] fields = splitStringWithReleaseChar(segmentStr, document.getReleaseCharacter(), document.getElementSeparator(), true);
+    	String[] fields = splitStringWithReleaseChar(segmentStr, document.getReleaseCharacter(), elementSeparator, true);
     	String[][] compositeFields = new String[fields.length][];
     	for (int i = 0; i < fields.length; i++) {
 			String field = fields[i];
-			String[] cFields = splitStringWithReleaseChar(field, document.getReleaseCharacter(), document.getSubElementSeparator(), true);
+			String[] cFields = splitStringWithReleaseChar(field, document.getReleaseCharacter(), subElementSeparator, true);
 			compositeFields[i] = new String[cFields.length];
 			for (int j = 0; j < cFields.length; j++) {
 				compositeFields[i][j] = cFields[j];
@@ -119,8 +130,8 @@ public class EdifactBuilder extends EdiBuilder {
     }
 
     private String[] splitStringWithReleaseChar(String content,
-            String releaseChar, String delimiter, boolean reserveEmpty) {
-        String[] segmentWithoutReleaseChar = content.split(Pattern.quote(delimiter), reserveEmpty?-1:0);
+            String releaseChar, Pattern delimiter, boolean reserveEmpty) {
+        String[] segmentWithoutReleaseChar = delimiter.split(content, reserveEmpty?-1:0);
         List<String> segmentWithReleaseChar = new ArrayList<String>();
         for (int i = 0; i < segmentWithoutReleaseChar.length; i++) {
             String segmentStr = segmentWithoutReleaseChar[i];
