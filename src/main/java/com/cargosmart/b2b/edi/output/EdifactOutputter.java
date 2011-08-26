@@ -40,11 +40,13 @@ public class EdifactOutputter {
         List<CompositeField> fields = interchange.getFields();
         writeSegment(strBuilder, document, fields);
         
+        boolean isEmptyGroup = true;
         
         List<GroupEnvelope> groups = interchange.getGroups();
         for (GroupEnvelope gs : groups) {
             // GS
             if (!(gs instanceof EmptyGroupEnvelope)) {
+                isEmptyGroup = false;
                 fields = gs.getFields();
                 writeSegment(strBuilder, document, fields);
             }
@@ -73,7 +75,9 @@ public class EdifactOutputter {
         }
         // UNZ
         strBuilder.append("UNZ").append(document.getElementSeparator())
-                .append(interchange.getGroups().size()).append(document.getElementSeparator())
+                //if emptyGroup, UNZ_01 should be count of transactions, otherwise, count of groups
+                .append(isEmptyGroup?interchange.getGroups().get(0).getTransactions().size():interchange.getGroups().size()) 
+                .append(document.getElementSeparator())
                 .append(interchange.getControlNumber()).append(document.getSegmentSeparator());
         return strBuilder.toString();
     }

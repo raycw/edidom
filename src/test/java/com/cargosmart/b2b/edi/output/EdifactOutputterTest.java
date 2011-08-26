@@ -21,7 +21,11 @@ public class EdifactOutputterTest {
         "BGM+380+3?+4?:2?'4??5?:+9'" + 
         "DTM+3:20060515:102'" +
         "UNT+4+00000000000117'" + 
-        "UNZ+1+00000000000778'";
+        "UNH+00000000000118+INVOIC:D:97B:UN'" + 
+        "BGM+380+3?+4?:2?'4??5?:+9'" + 
+        "DTM+3:20060515:102'" +
+        "UNT+4+00000000000118'" + 
+        "UNZ+2+00000000000778'";
 
     public static final String SIMPLE_EDI_WO_UNA_UNG = 
         "UNB+UNOA:1+005435656:1+006415160:1+060515:1434+00000000000778'" + 
@@ -29,7 +33,11 @@ public class EdifactOutputterTest {
         "BGM+380+?????+?+?:?:?'?'+9'" + 
         "DTM+3:20060515:102'" +
         "UNT+4+00000000000117'" +
-        "UNZ+1+00000000000778'";
+        "UNH+00000000000118+INVOIC:D:97B:UN'" + 
+        "BGM+380+?????+?+?:?:?'?'+9'" + 
+        "DTM+3:20060515:102'" +
+        "UNT+4+00000000000118'" +
+        "UNZ+2+00000000000778'";
     
     public static final String SIMPLE_EDIFACT_WO_UNA =
         "UNB+UNOA:1+005435656:1+006415160:1+060515:1434+00000000000778'" + 
@@ -38,12 +46,17 @@ public class EdifactOutputterTest {
         "BGM+380+?????+?+?:?:?'?++9?:'" + 
         "DTM+3:20060515:102'" +
         "UNT+4+00000000000117'" +
-        "UNE+1+268877'" +
+        "UNH+00000000000118+INVOIC:D:97B:UN'" + 
+        "BGM+380+?????+?+?:?:?'?++9?:'" + 
+        "DTM+3:20060515:102'" +
+        "UNT+4+00000000000118'" +
+        "UNE+2+268877'" +
         "UNZ+1+00000000000778'";
     
     private Document doc;
     private Document doc_w_una;
     private Document doc_wo_una;
+    private Document doc_wo_una_ung;
     
     @Before
     public void setUp() throws Exception {
@@ -51,6 +64,7 @@ public class EdifactOutputterTest {
         doc = builder.buildDocument(new InputStreamReader(EdifactOutputterTest.class.getResourceAsStream("/invoice_d97b.txt")));
         doc_w_una = builder.buildDocument(SIMPLE_EDIFACT_W_UNA);
         doc_wo_una = builder.buildDocument(SIMPLE_EDIFACT_WO_UNA);
+        doc_wo_una_ung = builder.buildDocument(SIMPLE_EDI_WO_UNA_UNG);
     }
 
     @After
@@ -65,6 +79,9 @@ public class EdifactOutputterTest {
         
         output = outputter.outputString(doc_wo_una);
         assertEquals(SIMPLE_EDIFACT_WO_UNA, output);
+
+        output = outputter.outputString(doc_wo_una_ung);
+        assertEquals(SIMPLE_EDI_WO_UNA_UNG, output);
     }
     
     @Test
