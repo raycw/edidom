@@ -70,7 +70,7 @@ public class PartnerId {
                 if (seg.getSegmentTag().equals("RFF")) {
                     String[][] fields = {{"RFF"}, {"CS",receiverId}};
                     segments.add(segments.indexOf(seg), new Segment(fields));
-                    break next;
+                    continue next;
                 }
             }
         }
