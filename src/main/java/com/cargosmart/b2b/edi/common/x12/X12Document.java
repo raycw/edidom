@@ -86,6 +86,9 @@ public class X12Document implements Document {
      * @see com.cargosmart.b2b.edi.common.x12.DocumentI#getSubElementSeparator()
      */
     public String getSubElementSeparator() {
+        if (interchange != null) {
+            subElementSeparator = interchange.getField(16).getValue();
+        }
         return subElementSeparator;
     }
 
@@ -94,6 +97,9 @@ public class X12Document implements Document {
      */
     public void setSubElementSeparator(String subElementSeparator) {
         this.subElementSeparator = subElementSeparator;
+        if (interchange != null) {
+            interchange.getField(16).setValue(subElementSeparator);
+        }
     }
 
 	/* (non-Javadoc)

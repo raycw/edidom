@@ -22,4 +22,14 @@ public class DocumentTest {
 		
 	}
 
+	@Test
+	public void testSubElementSeparator() {
+        Document doc = new X12Document();
+        X12InterchangeEnvelope interchange = new X12InterchangeEnvelope(new Segment(new String[17]));
+        doc.setInterchangeEnvelope(interchange);
+        
+        doc.setSubElementSeparator("@");
+        assertEquals("@", doc.getSubElementSeparator());
+        assertEquals("@", interchange.getField(16).getValue());
+	}
 }

@@ -3,7 +3,7 @@
   <groupId>com.cargosmart.b2b</groupId>
   <artifactId>edi-common</artifactId>
   <name>edi-common</name>
-  <version>0.1.4</version>
+  <version>0.1.5</version>
   <url>https://github.com/raycw/edi-common</url>
   <scm>
   	<url>https://raycw@github.com/raycw/edi-common.git</url>
