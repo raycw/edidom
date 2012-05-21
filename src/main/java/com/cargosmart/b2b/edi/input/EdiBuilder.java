@@ -42,6 +42,7 @@ public abstract class EdiBuilder {
         while ((nRead = buffReader.read(buffer, 0, 1024)) != -1) {
             content.append(buffer, 0, nRead);
         }
+        buffReader.close();
         return buildDocument(content.toString());
 	}
 
