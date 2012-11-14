@@ -99,7 +99,7 @@ public class EdifactBuilderTest {
 		assertEquals("BY", segments.get(0).getField(1).getField(1).getValue());
 		assertEquals("792820524", segments.get(0).getField(2).getField(1).getValue());
 		assertEquals("", segments.get(0).getField(2).getField(2).getValue());
-		assertEquals("CUMMINS MID-RANGE ENGINE PLANT +M", segments.get(0).getField(4).getField(1).getValue());
+		assertEquals("CUMMINS MID-RANGE E'NGINE PLANT +M", segments.get(0).getField(4).getField(1).getValue());
 		assertEquals("GENERAL WIDGET COMPANY' ATTN:Raymond:", segments.get(1).getField(4).getField(1).getValue());
 	}
 }

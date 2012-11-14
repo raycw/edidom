@@ -53,10 +53,50 @@ public class EdifactOutputterTest {
         "UNE+2+268877'" +
         "UNZ+1+00000000000778'";
     
+    public static final String REAL_EDI =
+            "UNA:+.? '" + 
+            "UNB+UNOC:3+HIGHGOAL:ZZZ+INTTRANG2:ZZZ+120920:1309+23749779'" + 
+            "UNH+23749779+IFTMBF:D:99B:UN:2.0'" + 
+            "BGM+335+HGZW12090337+9'" + 
+            "CTA+IC+:FANNYWEN'" + 
+            "COM+020-38390141:TE'" + 
+            "COM+fanny@highgoalgz.com:EM'" + 
+            "COM+020-38105788:FX'" + 
+            "DTM+137:201209201309:203'" + 
+            "TSR+30'" + 
+            "FTX+AAI+++DOC FANNYWEN,WUCHONG LAOD;CNTR STUFF ON SEP,24;EQC?:UG'" + 
+            "LOC+197+CNCAN:181:6:GUANGZHOU'" + 
+            "LOC+7+GHTEM:181:6:TEMA'" + 
+            "LOC+88+CNHUA:181:6:HUANGPU'" + 
+            "DTM+196:20120930:102'" + 
+            "RFF+SI:HGZW12090337'" + 
+            "RFF+CT:QGGZ006720'" + 
+            "TDT+20+FX267W+1+++++:::VILLE D?' ORION '" + 
+            "LOC+9+CNHUA:139:6:HUANGPU'" + 
+            "LOC+11+GHTEM:139:6:TEMA'" + 
+            "NAD+CA+CMDU:160:86+CMA CGM'" + 
+            "NAD+ZZZ+HIGHGOALCNCAN:160:86+HIGH GOAL LTD'" + 
+            "CTA+NT+:FANNYWEN'" + 
+            "COM+fanny@highgoalgz.com:EM'" + 
+            "CTA+IC+:FANNYWEN'" + 
+            "COM+020-38390141:TE'" + 
+            "COM+fanny@highgoalgz.com:EM'" + 
+            "COM+020-38105788:FX'" + 
+            "NAD+FW+HIGHGOALCNCAN:160:86+HIGH GOAL LTD'" + 
+            "GID+1'" + 
+            "FTX+AAA+++FURNITURE'" + 
+            "MEA+AAE+G+KGM:28000'" + 
+            "EQD+CN++45G1:102:5+2'" + 
+            "EQN+1:2'" + 
+            "TMD+3++MM'" + 
+            "UNT+34+23749779'" + 
+            "UNZ+1+23749779'";
+    
     private Document doc;
     private Document doc_w_una;
     private Document doc_wo_una;
     private Document doc_wo_una_ung;
+    private Document doc_real_edi;
     
     @Before
     public void setUp() throws Exception {
@@ -65,6 +105,7 @@ public class EdifactOutputterTest {
         doc_w_una = builder.buildDocument(SIMPLE_EDIFACT_W_UNA);
         doc_wo_una = builder.buildDocument(SIMPLE_EDIFACT_WO_UNA);
         doc_wo_una_ung = builder.buildDocument(SIMPLE_EDI_WO_UNA_UNG);
+        doc_real_edi = builder.buildDocument(REAL_EDI);
     }
 
     @After
@@ -82,6 +123,9 @@ public class EdifactOutputterTest {
 
         output = outputter.outputString(doc_wo_una_ung);
         assertEquals(SIMPLE_EDI_WO_UNA_UNG, output);
+        
+        output = outputter.outputString(doc_real_edi);
+        assertEquals(REAL_EDI, output);
     }
     
     @Test
