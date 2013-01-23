@@ -24,7 +24,10 @@ public abstract class EdiBuilder {
 	 * @throws IOException when an I/O error prevents a document from being fully parsed
 	 */
 	public Document buildDocument(File file) throws IOException {
-		return buildDocument(new FileReader(file));
+	    Reader reader = new FileReader(file);
+	    Document doc = buildDocument(reader);
+	    reader.close();
+		return doc;
 	}
 	
     /**
