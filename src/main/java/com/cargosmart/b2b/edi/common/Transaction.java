@@ -42,4 +42,8 @@ public interface Transaction {
      * @return copy of this instance
      */
     public abstract Transaction copy();
+
+    public abstract int getSegmentPosition(Segment segment);
+
+    public abstract Segment getSegment(int position);
 }

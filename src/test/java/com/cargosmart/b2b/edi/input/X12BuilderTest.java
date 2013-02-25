@@ -110,4 +110,30 @@ public class X12BuilderTest {
     	assertEquals(27, segments.size());
     	
     }
+    
+    @Test
+    public void testNextSegment() {
+        Segment segment = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).getSegements().get(0);
+        assertEquals(segment.nextSegment(), null);
+    }
+    
+    @Test
+    public void testPreviousSegment() {
+        Segment segment = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).getSegements().get(0);
+        assertEquals(segment.previousSegment(), null);
+    }
+
+    @Test
+    public void testNextSegments() {
+        List<Segment> r4List = doc_301.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).getSegments("R4");
+        assertEquals(4, r4List.get(0).nextSegments("DTM").size());
+        assertEquals(1, r4List.get(3).nextSegments("DTM").size());
+    }
+    
+    @Test
+    public void testPreviousSegments() {
+        List<Segment> r4List = doc_301.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).getSegments("R4");
+        assertEquals(1, r4List.get(1).previousSegments("DTM").size());
+        assertEquals(3, r4List.get(3).previousSegments("DTM").size());
+    }
 }

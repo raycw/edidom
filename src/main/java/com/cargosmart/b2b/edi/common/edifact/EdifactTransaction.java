@@ -113,4 +113,15 @@ public class EdifactTransaction extends Envelope implements Transaction {
 	public Transaction copy() {
 		return new EdifactTransaction(this);
 	}
+
+    public int getSegmentPosition(Segment segment) {
+        return segments.indexOf(segment);
+    }
+
+    public Segment getSegment(int position) {
+        if (position < 0 || position >= segments.size()) {
+            return null;
+        }
+        return segments.get(position);
+    }
 }

@@ -102,4 +102,50 @@ public class EdifactBuilderTest {
 		assertEquals("CUMMINS MID-RANGE E'NGINE PLANT +M", segments.get(0).getField(4).getField(1).getValue());
 		assertEquals("GENERAL WIDGET COMPANY' ATTN:Raymond:", segments.get(1).getField(4).getField(1).getValue());
 	}
+	
+	@Test
+	public void testNextSegment() {
+	    Transaction txn = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0);
+	    Segment bgm = txn.getSegments("BGM").get(0);
+	    Segment dtm = txn.getSegments("DTM").get(0);
+	    assertEquals(bgm.nextSegment(), dtm);
+	    
+	    Segment moa = txn.getSegments("MOA").get(txn.getSegments("MOA").size()-1);
+	    assertEquals(null, moa.nextSegment());
+	}
+	
+    @Test
+    public void testPreviousSegment() {
+        Transaction txn = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0);
+        Segment bgm = txn.getSegments("BGM").get(0);
+        Segment dtm = txn.getSegments("DTM").get(0);
+        assertEquals(dtm.previousSegment(), bgm);
+        assertEquals(null, bgm.previousSegment());
+        
+        Segment moa = txn.getSegments("MOA").get(txn.getSegments("MOA").size()-1);
+        Segment alc = txn.getSegments("ALC").get(txn.getSegments("ALC").size()-1);
+        assertEquals(alc, moa.previousSegment());
+    }
+    
+    @Test
+    public void testNextSegments() {
+        Transaction txn = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0);
+        List<Segment> linList = txn.getSegments("LIN");
+        List<Segment> firstMOAList = linList.get(0).nextSegments("MOA");
+        assertEquals(4, firstMOAList.size());
+        
+        List<Segment> secondMOAList = linList.get(1).nextSegments("MOA");
+        assertEquals(3, secondMOAList.size());
+    }
+	
+    @Test
+    public void testPreviousSegments() {
+        Transaction txn = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0);
+        List<Segment> linList = txn.getSegments("LIN");
+        List<Segment> firstMOAList = linList.get(0).previousSegments("MOA");
+        assertEquals(0, firstMOAList.size());
+        
+        List<Segment> secondMOAList = linList.get(1).previousSegments("MOA");
+        assertEquals(1, secondMOAList.size());
+    }
 }

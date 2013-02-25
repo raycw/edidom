@@ -87,5 +87,38 @@ public final class Segment {
 	public Segment copy() {
 		return new Segment(this);
 	}
+	
+	public Segment nextSegment() {
+	    int position = transaction.getSegmentPosition(this);
+	    return transaction.getSegment(position+1);
+	}
+	
+	public Segment previousSegment() {
+        int position = transaction.getSegmentPosition(this);
+        return transaction.getSegment(position-1);
+	}
 
+	public List<Segment> nextSegments(String tagName) {
+	    List<Segment> allSegments = transaction.getSegements();
+	    List<Segment> subList = allSegments.subList(transaction.getSegmentPosition(this), allSegments.size());
+	    List<Segment> result = new ArrayList<Segment>();
+        for (Segment segment : subList) {
+            if (segment.getSegmentTag().equals(tagName)) {
+                result.add(segment);
+            }
+        }
+        return result;
+	}
+	
+    public List<Segment> previousSegments(String tagName) {
+        List<Segment> allSegments = transaction.getSegements();
+        List<Segment> subList = allSegments.subList(0, transaction.getSegmentPosition(this));
+        List<Segment> result = new ArrayList<Segment>();
+        for (Segment segment : subList) {
+            if (segment.getSegmentTag().equals(tagName)) {
+                result.add(segment);
+            }
+        }
+        return result;
+    }
 }
