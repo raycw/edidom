@@ -14,7 +14,18 @@ public interface Transaction {
 
     public abstract Transaction removeSegment(Segment segment);
 
+    /**
+     * Use getSegments instead
+     * @deprecated
+     * @return
+     */
     public abstract List<Segment> getSegements();
+    
+    /**
+     * 
+     * @return
+     */
+    public abstract List<Segment> getSegments();
 
     /**
      * Gets Transaction field by position. The position is starting from 1.

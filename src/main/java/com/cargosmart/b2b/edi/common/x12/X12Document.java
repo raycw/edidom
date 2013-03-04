@@ -106,9 +106,7 @@ public class X12Document implements Document {
      * @see com.cargosmart.b2b.edi.common.x12.DocumentI#getSegment(java.lang.String)
      */
 	public List<Segment> getSegment(String tag) {
-		List<Segment> segments = new ArrayList<Segment>();
-		segments.addAll(interchange.getSegment(tag));
-		return segments;
+		return getSegments(tag);
 	}
 
 	/**
@@ -130,4 +128,10 @@ public class X12Document implements Document {
 	public Document copy() {
 		return new X12Document(this);
 	}
+
+    public List<Segment> getSegments(String tag) {
+        List<Segment> segments = new ArrayList<Segment>();
+        segments.addAll(interchange.getSegment(tag));
+        return segments;
+    }
 }

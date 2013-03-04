@@ -55,7 +55,7 @@ public class EdifactBuilderTest {
 		assertEquals("'", doc.getSegmentSeparator());
 		assertEquals("?", doc.getReleaseCharacter());
 		assertNotNull(doc.getInterchangeEnvelope());
-		assertEquals(1, doc.getSegment("BGM").size());
+		assertEquals(1, doc.getSegments("BGM").size());
 	}
 	
 	@Test

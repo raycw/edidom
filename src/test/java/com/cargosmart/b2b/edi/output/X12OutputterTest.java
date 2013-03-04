@@ -90,7 +90,7 @@ public class X12OutputterTest {
 	
 	@Test
 	public void testChangeN9_BN() throws IOException {
-		Segment n9 = doc_301.getSegment("N9").get(0);
+		Segment n9 = doc_301.getSegments("N9").get(0);
 		n9.getField(2).setValue("0987654321");
 		String output = outputter.outputString(doc_301);
 		assertEquals(X12OutputterTest.readFile("/X12_2.txt"), output);

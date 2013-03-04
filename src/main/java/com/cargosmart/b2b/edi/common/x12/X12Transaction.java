@@ -61,7 +61,7 @@ public class X12Transaction extends Envelope implements Transaction {
      * @see com.cargosmart.b2b.edi.common.x12.Transaction#getSegements()
      */
 	public List<Segment> getSegements() {
-		return segments;
+		return getSegments();
 	}
 
 	/* (non-Javadoc)
@@ -123,5 +123,9 @@ public class X12Transaction extends Envelope implements Transaction {
             return null;
         }
         return segments.get(position);
+    }
+
+    public List<Segment> getSegments() {
+        return segments;
     }
 }

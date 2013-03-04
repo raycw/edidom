@@ -62,7 +62,22 @@ public interface Document {
      */
     public abstract void setSubElementSeparator(String subElementSeparator);
 
+    /**
+     * Use getSegments instead
+     * 
+     * @deprecated
+     * @param tag
+     * @return
+     */
     public abstract List<Segment> getSegment(String tag);
+    
+    /**
+     * Returns List of Segments of provided tag name
+     * 
+     * @param tag 
+     * @return List of segments
+     */
+    public abstract List<Segment> getSegments(String tag);
 
     /**
      * Gets the document release character

@@ -102,24 +102,24 @@ public class X12BuilderTest {
     
     @Test
     public void testSegment() {
-    	Segment segment = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).getSegements().get(0);
+    	Segment segment = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).getSegments().get(0);
     	assertEquals("BEG", segment.getSegmentTag());
     	assertEquals("950118", segment.getField(6).getValue());
     	
-    	List<Segment> segments = doc_301.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).getSegements();
+    	List<Segment> segments = doc_301.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).getSegments();
     	assertEquals(27, segments.size());
     	
     }
     
     @Test
     public void testNextSegment() {
-        Segment segment = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).getSegements().get(0);
+        Segment segment = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).getSegments().get(0);
         assertEquals(segment.nextSegment(), null);
     }
     
     @Test
     public void testPreviousSegment() {
-        Segment segment = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).getSegements().get(0);
+        Segment segment = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0).getSegments().get(0);
         assertEquals(segment.previousSegment(), null);
     }
 
