@@ -6,6 +6,7 @@ You need to install [MAVEN](http://maven.apache.org/), edi-common is using maven
   
 	mvn package
 
+## Data Structure ##
 <pre>
   +-------------------------------------------------------------------+
   |  InterchangeEnvelope (1)                                          |
@@ -30,7 +31,5 @@ You need to install [MAVEN](http://maven.apache.org/), edi-common is using maven
   |  |  | | Segment                                         | |   |   |
   |  |  | +-------------------------------------------------+ |   |   |
   |  |  +-----------------------------------------------------+   |   |
-  |  |                                                            |   |
   |  +------------------------------------------------------------+   |
-  |                                                                   |
   +-------------------------------------------------------------------+</pre>
