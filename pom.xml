@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.cargosmart.b2b</groupId>
-  <artifactId>edi-common</artifactId>
-  <name>edi-common</name>
-  <version>0.1.8</version>
-  <url>https://github.com/raycw/edi-common</url>
+  <groupId>com.github</groupId>
+  <artifactId>edidom</artifactId>
+  <name>edidom</name>
+  <version>0.2.0</version>
+  <url>https://github.com/raycw/edidom</url>
   <scm>
-  	<url>https://raycw@github.com/raycw/edi-common.git</url>
+  	<url>https://raycw@github.com/raycw/edidom.git</url>
   </scm>
   <build>
   	<plugins>
