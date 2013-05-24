@@ -36,4 +36,5 @@ You need to install [MAVEN](http://maven.apache.org/), edidom is using maven to 
 
 ## License ##
 Apache License, Version 2
+
 http://www.apache.org/licenses/LICENSE-2.0
