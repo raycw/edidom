@@ -32,7 +32,30 @@ You need to install [MAVEN](http://maven.apache.org/), edidom is using maven to 
   |  |  | +-------------------------------------------------+ |   |   |
   |  |  +-----------------------------------------------------+   |   |
   |  +------------------------------------------------------------+   |
-  +-------------------------------------------------------------------+</pre>
+  +-------------------------------------------------------------------+
+</pre>
+
+## Getting Started ##
+### Read EDI ###
+Create a <code>Builder</code> first. For X12, use <code>com.github.edidom.input.X12Builder</code>, for EDIFACT, use <code>com.github.edidom.input.EdifactBuilder</code>
+
+    File ediFile = new File(path);
+    Builder builder = new EdifactBuilder();
+    Document doc = builder.buildDocument(ediFile);
+### Modify Content ###
+Get all <code>Segment</code> "N9" and change the value of field number 2
+
+    List<Segment> segments = doc.getSegments("N9);
+    for (Segment seg : segments) {
+      seg.getField(2).setValue("AA")
+    }
+### Write EDI ###
+Create cooresponding outputter and output as a string
+
+    X12Outputter outputter = new X12Outputter();
+    String ediOutput = outputter.outputString(doc);
+    
+That is!! Good luck!!
 
 ## License ##
 Apache License, Version 2
