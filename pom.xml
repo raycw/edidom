@@ -17,8 +17,8 @@
 	</licenses>
 	<scm>
 		<url>https://github.com/raycw/edidom</url>
-		<connection>scm:git:git@github.com:raycw/edidom.git</connection>
-		<developerConnection>scm:git:git@github.com:raycw/edidom.git</developerConnection>
+		<connection>scm:git:https://github.com/raycw/edidom.git</connection>
+		<developerConnection>scm:git:https://github.com/raycw/edidom.git</developerConnection>
 	</scm>
 	<developers>
 		<developer>
