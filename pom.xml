@@ -4,7 +4,7 @@
 	<artifactId>edidom</artifactId>
 	<packaging>jar</packaging>
 	<name>edidom</name>
-	<version>0.2.0-SNAPSHOT</version>
+	<version>0.2.0</version>
 	<description>Inspired by JDOM, edidom is both Java-centric and Java-optimized. It behaves like Java, it uses Java collections, it is completely natural API for current Java developers, and it provides a low-cost entry point for using EDI.</description>
 	<url>https://github.com/raycw/edidom</url>
 	<licenses>
