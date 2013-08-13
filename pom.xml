@@ -18,8 +18,7 @@
 		<url>https://github.com/raycw/edidom</url>
 		<connection>scm:git:https://github.com/raycw/edidom.git</connection>
 		<developerConnection>scm:git:https://github.com/raycw/edidom.git</developerConnection>
-	  <tag>edidom-0.2.0</tag>
-  </scm>
+	</scm>
 	<developers>
 		<developer>
 			<id>raycw</id>
