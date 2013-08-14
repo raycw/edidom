@@ -37,7 +37,7 @@ You need to install [MAVEN](http://maven.apache.org/), edidom is using maven to 
 
 ## Getting Started ##
 ### Read EDI ###
-Create a <code>Builder</code> first. For X12, use <code>com.github.edidom.input.X12Builder</code>, for EDIFACT, use <code>com.github.edidom.input.EdifactBuilder</code>
+Create a <code>Builder</code> first. For X12, use <code>com.github.raycw.edidom.input.X12Builder</code>, for EDIFACT, use <code>com.github.raycw.edidom.input.EdifactBuilder</code>
 
     File ediFile = new File(path);
     Builder builder = new EdifactBuilder();
