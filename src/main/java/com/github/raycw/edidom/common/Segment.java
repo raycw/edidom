@@ -74,6 +74,19 @@ public final class Segment {
 		return addCompositeField(field);
 	}
 	
+	/**
+	 * Add composite field in position (N).
+	 * e.g. Add "IL" in field position (8)
+	 * Before: R4|R|UN|USCHI|Chicago|US~
+	 * After:  R4|R|UN|USCHI|Chicago|US|||IL~
+	 * @param position
+	 * @param field
+	 * @return
+	 */
+	public Segment addField(int position, Field field) {
+		return addCompositeField(position, field);
+	}
+	
 	public List<CompositeField> getFields() {
 		return fields;
 	}
@@ -94,6 +107,15 @@ public final class Segment {
 	public Segment addCompositeField(CompositeField field) {
 		fields.add(field);
 		field.setSegment(this);
+		return this;
+	}
+
+	public Segment addCompositeField(int position, CompositeField field) {
+		// Pad empty field (last index + 1 to position - 1)
+		for(int i = fields.size() ; i <= position - 1 ; i++){
+			fields.add(new Field(""));
+		}
+		fields.add(field);
 		return this;
 	}
 	
