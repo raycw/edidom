@@ -43,12 +43,16 @@ public class SegmentTest {
 	private GroupEnvelope group;
     private Transaction txn;
     private Segment segment;
+    private Segment segmentR4;
     private Field field;
     private CompositeField cField;
     private static final String[] X12_FIELDS = { 
     	    "ISA", "00", "          ", "00",
             "          ", "01", "GITHUB     ", "ZZ", "ACSLTEST       ",
             "100716", "1228", "U", "00401", "000000004", "0", "P", ":" };
+    private static final String[] X12_R4_FIELDS = { 
+	    "R4","R","UN","USCHI","Chicago","US" };
+    
     private static final String[] TXN_FIELDS = {"ST","301","40001"};
     private static final String[] GRP_FIELDS = {"GS","RO","GITHUB","ACSLTEST","20100716","1228","4","X","004010"};
     
@@ -59,6 +63,7 @@ public class SegmentTest {
         group = new X12GroupEnvelope(new Segment(GRP_FIELDS));
     	txn = new X12Transaction(new Segment(TXN_FIELDS));
         segment = new Segment(X12_FIELDS);
+        segmentR4 = new Segment(X12_R4_FIELDS);
         field = new Field();
         cField = new CompositeField();
         txn.addSegment(segment);
@@ -78,6 +83,22 @@ public class SegmentTest {
 
         segment.addCompositeField(cField);
         assertEquals(19, segment.getFields().size());
+    }
+
+    @Test
+    public void testAddFieldInPosition() {
+    	//Before
+        assertEquals(6, segmentR4.getFields().size());
+        Field field = new Field();
+        field.setValue("IL");
+        segmentR4.addField(8, field);
+        
+        assertEquals(9, segmentR4.getFields().size());
+        assertEquals("", segmentR4.getField(6).getValue());
+		assertEquals("", segmentR4.getField(7).getValue());
+        assertEquals("IL", segmentR4.getField(8).getValue());
+		assertEquals("US", segmentR4.getField(5).getValue());
+        
     }
     
     @Test
