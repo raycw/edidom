@@ -21,6 +21,7 @@ import java.util.List;
 import com.github.raycw.edidom.common.CompositeField;
 import com.github.raycw.edidom.common.Envelope;
 import com.github.raycw.edidom.common.GroupEnvelope;
+import com.github.raycw.edidom.common.LoopGroup;
 import com.github.raycw.edidom.common.Segment;
 import com.github.raycw.edidom.common.Transaction;
 
@@ -142,5 +143,37 @@ public class X12Transaction extends Envelope implements Transaction {
 
     public List<Segment> getSegments() {
         return segments;
+    }
+
+    public List<LoopGroup> getLoopGroups(String startTag, String endTag) {
+        //Get all start segments
+        //If more than one, find the end tag
+        //Grep all the segments from startTag to endTag
+        List<LoopGroup> loopGroups = new ArrayList<LoopGroup>();
+        List<Segment> segments = this.getSegments(startTag);
+        if (segments.size() == 0) {
+            return loopGroups;
+        }
+        for (int i = 0; i < segments.size() -1; i++) {
+            Segment segment = segments.get(i);
+            LoopGroup loop = new LoopGroup(this);
+            loop.addSegment(segment);
+            segment = segment.nextSegment();
+            while (!segment.getSegmentTag().equals(startTag)) {
+                loop.addSegment(segment);
+                segment = segment.nextSegment();
+            }
+            loopGroups.add(loop);
+        }
+        Segment segment = segments.get(segments.size()-1);
+        LoopGroup loop = new LoopGroup(this);
+        loop.addSegment(segment);
+        segment = segment.nextSegment();
+        while (!segment.getSegmentTag().equals(endTag)) {
+            loop.addSegment(segment);
+            segment = segment.nextSegment();
+        }
+        loopGroups.add(loop);
+        return loopGroups;
     }
 }

@@ -72,4 +72,6 @@ public interface Transaction {
     public abstract int getSegmentPosition(Segment segment);
 
     public abstract Segment getSegment(int position);
+    
+    public abstract List<LoopGroup> getLoopGroups(String startTag, String endTag);
 }

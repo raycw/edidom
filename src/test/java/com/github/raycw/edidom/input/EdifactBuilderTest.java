@@ -29,6 +29,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.raycw.edidom.common.Document;
+import com.github.raycw.edidom.common.LoopGroup;
 import com.github.raycw.edidom.common.Segment;
 import com.github.raycw.edidom.common.Transaction;
 import com.github.raycw.edidom.common.edifact.EdifactGroupEnvelope;
@@ -163,5 +164,21 @@ public class EdifactBuilderTest {
         
         List<Segment> secondMOAList = linList.get(1).previousSegments("MOA");
         assertEquals(1, secondMOAList.size());
+    }
+    
+    @Test
+    public void testLoopGroup() {
+        Transaction txn = doc.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0);
+        List<LoopGroup> loops = txn.getLoopGroups("LIN", "UNS");
+        assertEquals(2, loops.size());
+        
+        for (LoopGroup loopGroup : loops) {
+            assertEquals(6, loopGroup.getSegments().size());
+            assertEquals("LIN", loopGroup.getSegments().get(0).getSegmentTag());
+            assertEquals("PRI", loopGroup.getSegments().get(5).getSegmentTag());
+            List<LoopGroup> secondLoop = loopGroup.getLoopGroups("LIN", "QTY");
+            assertEquals(1, secondLoop.size());
+            assertEquals(2, secondLoop.get(0).getSegments().size());
+        }
     }
 }
