@@ -16,6 +16,7 @@
 package com.github.raycw.edidom.common.edifact;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.github.raycw.edidom.common.CompositeField;
@@ -64,6 +65,57 @@ public class EdifactTransaction extends Envelope implements Transaction {
 	public Transaction addSegment(Segment segment) {
 		segments.add(segment);
 		segment.setTransaction(this);
+		return this;
+	}
+	
+	/**
+	 * Add segment into specific position.
+	 * e.g. Add segment D into position 1
+	 * before:
+	 * position 0: segment A
+	 * position 1: segment B
+	 * position 2: segment C
+	 * 
+	 * after:
+	 * position 0: segment A
+	 * position 1: segment D
+	 * position 2: segment B
+	 * position 3: segment C
+	 * 
+	 * @param position Insert position.
+	 * @param segment Segment object
+	 * @return Transaction that inserted segment belong to.
+	 */
+	public Transaction addSegment(int position, Segment segment) {
+		segments.add(position, segment);
+		segment.setTransaction(this);
+		return this;
+	}
+	
+	/**
+	 * Add segments into specific position.
+	 * e.g. Add segment D & segment E into position 1
+	 * before:
+	 * position 0: segment A
+	 * position 1: segment B
+	 * position 2: segment C
+	 * 
+	 * after:
+	 * position 0: segment A
+	 * position 1: segment D
+	 * position 2: segment E
+	 * position 3: segment B
+	 * position 4: segment C
+	 * 
+	 * @param position Insert position.
+	 * @param segment Segment object
+	 * @return Transaction that inserted segment belong to.
+	 */
+	public Transaction addSegment(int position, Collection<Segment> segments) {
+		// Insert segments one by one from position
+		for(Segment segment : segments){
+			addSegment(position++, segment);
+		}
 		return this;
 	}
 	
@@ -176,4 +228,5 @@ public class EdifactTransaction extends Envelope implements Transaction {
         loopGroups.add(loop);
         return loopGroups;
     }
+
 }

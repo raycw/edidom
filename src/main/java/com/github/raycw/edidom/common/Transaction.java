@@ -15,6 +15,7 @@
  ******************************************************************************/
 package com.github.raycw.edidom.common;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface Transaction {
@@ -26,6 +27,10 @@ public interface Transaction {
     public abstract Transaction detach();
 
     public abstract Transaction addSegment(Segment segment);
+    
+    public abstract Transaction addSegment(int position, Segment segment);
+    
+    public abstract Transaction addSegment(int position, Collection<Segment> segments);
 
     public abstract Transaction removeSegment(Segment segment);
 
