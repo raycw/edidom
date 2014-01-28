@@ -180,5 +180,8 @@ public class EdifactBuilderTest {
             assertEquals(1, secondLoop.size());
             assertEquals(2, secondLoop.get(0).getSegments().size());
         }
+        loops = txn.getLoopGroups("ALC", "UNT");
+        assertEquals(1, loops.size());
+        assertEquals(2, loops.get(0).getSegments().size());
     }
 }

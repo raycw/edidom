@@ -221,7 +221,7 @@ public class X12Transaction extends Envelope implements Transaction {
         LoopGroup loop = new LoopGroup(this);
         loop.addSegment(segment);
         segment = segment.nextSegment();
-        while (!segment.getSegmentTag().equals(endTag)) {
+        while (segment != null && !segment.getSegmentTag().equals(endTag)) {
             loop.addSegment(segment);
             segment = segment.nextSegment();
         }
