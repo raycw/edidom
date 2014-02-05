@@ -117,7 +117,8 @@ public class EdifactBuilderTest {
 		assertEquals("792820524", segments.get(0).getField(2).getField(1).getValue());
 		assertEquals("", segments.get(0).getField(2).getField(2).getValue());
 		assertEquals("CUMMINS MID-RANGE E'NGINE PLANT +M", segments.get(0).getField(4).getField(1).getValue());
-		assertEquals("GENERAL WIDGET COMPANY' ATTN:Raymond:", segments.get(1).getField(4).getField(1).getValue());
+		//test release character
+		assertEquals("GENERAL WIDGET COMPANY' ATTN:Raymond:??+", segments.get(1).getField(4).getField(1).getValue());
 	}
 	
 	@Test

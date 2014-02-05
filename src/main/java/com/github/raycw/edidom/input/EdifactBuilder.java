@@ -131,14 +131,20 @@ public class EdifactBuilder extends EdiBuilder {
     }
     
     private String[][] splitFields(String segmentStr, EdifactDocument document) {
-    	String[] fields = splitStringWithReleaseChar(segmentStr, document.getReleaseCharacter(), elementSeparator, true);
+        String releaseChar = document.getReleaseCharacter();
+        Pattern p = Pattern.compile(Pattern.quote(releaseChar+releaseChar));
+    	String[] fields = splitStringWithReleaseChar(segmentStr, releaseChar, elementSeparator, true);
     	String[][] compositeFields = new String[fields.length][];
     	for (int i = 0; i < fields.length; i++) {
 			String field = fields[i];
-			String[] cFields = splitStringWithReleaseChar(field, document.getReleaseCharacter(), subElementSeparator, true);
+			String[] cFields = splitStringWithReleaseChar(field, releaseChar, subElementSeparator, true);
 			compositeFields[i] = new String[cFields.length];
 			for (int j = 0; j < cFields.length; j++) {
-				compositeFields[i][j] = cFields[j];
+			    if (cFields[j].contains(releaseChar+releaseChar)) {
+			        compositeFields[i][j] = p.matcher(cFields[j]).replaceAll(releaseChar);
+			    } else {
+			        compositeFields[i][j] = cFields[j];
+			    }
 			}
 		}
         return compositeFields;

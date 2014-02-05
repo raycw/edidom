@@ -40,6 +40,7 @@ public class EdifactOutputter {
     public String outputString(Document document) {
         // Create regex for release character
         releasePattern = Pattern.compile("([" + document.getElementSeparator() + document.getSegmentSeparator() + document.getSubElementSeparator() + "])");
+        releaseCharPattner = Pattern.compile(Pattern.quote(document.getReleaseCharacter()));
         
         StringBuilder strBuilder = new StringBuilder();
         // Interchange
@@ -99,17 +100,31 @@ public class EdifactOutputter {
 
     private void writeSegment(StringBuilder strBuilder, Document document,
             List<CompositeField> fields) {
-        strBuilder.append(releasePattern.matcher(fields.get(0).getField(1).getValue()).replaceAll(document.getReleaseCharacter()+"$0"));
+        String fieldValue = fields.get(0).getField(1).getValue();
+        if (fieldValue.contains(document.getReleaseCharacter())) {
+            fieldValue = releaseCharPattner.matcher(fieldValue).replaceAll(document.getReleaseCharacter()+document.getReleaseCharacter());
+        }
+        strBuilder.append(releasePattern.matcher(fieldValue).replaceAll(document.getReleaseCharacter()+"$0"));
         for (int i = 1; i < fields.size(); i++) {
             List<Field> subFields = fields.get(i).getFields();
-            strBuilder.append(document.getElementSeparator()).append(releasePattern.matcher(subFields.get(0).getValue()).replaceAll(document.getReleaseCharacter()+"$0"));
+            fieldValue = subFields.get(0).getValue();
+            if (fieldValue.contains(document.getReleaseCharacter())) {
+                fieldValue = releaseCharPattner.matcher(fieldValue).replaceAll(document.getReleaseCharacter()+document.getReleaseCharacter());
+            }
+            strBuilder.append(document.getElementSeparator()).append(releasePattern.matcher(fieldValue).replaceAll(document.getReleaseCharacter()+"$0"));
             for (int j = 1; j < subFields.size(); j++) {
-                strBuilder.append(document.getSubElementSeparator()).append(releasePattern.matcher(subFields.get(j).getValue()).replaceAll(document.getReleaseCharacter()+"$0"));         
+                fieldValue = subFields.get(j).getValue();
+                if (fieldValue.contains(document.getReleaseCharacter())) {
+                    fieldValue = releaseCharPattner.matcher(fieldValue).replaceAll(document.getReleaseCharacter()+document.getReleaseCharacter());
+                }
+                fieldValue = releasePattern.matcher(fieldValue).replaceAll(document.getReleaseCharacter()+"$0");
+                strBuilder.append(document.getSubElementSeparator()).append(fieldValue);
             }
         }
         strBuilder.append(document.getSegmentSeparator());
     }
     
     private Pattern releasePattern;
+    private Pattern releaseCharPattner;
 
 }
