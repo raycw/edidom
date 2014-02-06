@@ -40,6 +40,20 @@ public class EdifactBuilderTest {
 
 	private static String edifactStr;
 	private Document doc;
+    private Document doc_w_una;
+	
+    public static final String SIMPLE_EDIFACT_W_UNA = 
+            "UNA:+.? '" + 
+            "UNB+UNOA:1+005435656:1+006415160:1+060515:1434+00000000000778'" + 
+            "UNH+00000000000117+INVOIC:D:97B:UN'" + 
+            "BGM+380+3?+4?:2?'4??5?:+9'" + 
+            "DTM+3:20060515:102'" +
+            "UNT+4+00000000000117'" + 
+            "UNH+00000000000118+INVOIC:D:97B:UN'" + 
+            "BGM+380+3?+4?:2?'4??5?:+9'" + 
+            "DTM+3:20060515:102'" +
+            "UNT+4+00000000000118'" + 
+            "UNZ+2+00000000000778'";
 
 	@BeforeClass
 	public static void onlyOnce() throws Exception {
@@ -59,6 +73,7 @@ public class EdifactBuilderTest {
 	public void setUp() throws Exception {
 		EdifactBuilder builder = new EdifactBuilder();
 		doc = builder.buildDocument(edifactStr);
+		doc_w_una = builder.buildDocument(SIMPLE_EDIFACT_W_UNA);
 	}
 
 	@After
@@ -184,5 +199,12 @@ public class EdifactBuilderTest {
         loops = txn.getLoopGroups("ALC", "UNT");
         assertEquals(1, loops.size());
         assertEquals(2, loops.get(0).getSegments().size());
+    }
+    
+    @Test
+    public void testReleaseCharacter() {
+        Transaction txn = doc_w_una.getInterchangeEnvelope().getGroups().get(0).getTransactions().get(0);
+        Segment bgm = txn.getSegments("BGM").get(0);
+        assertEquals("3+4:2'4?5:", bgm.getField(2).getValue());
     }
 }

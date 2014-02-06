@@ -17,6 +17,7 @@ package com.github.raycw.edidom.input;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.github.raycw.edidom.common.Document;
@@ -132,7 +133,7 @@ public class EdifactBuilder extends EdiBuilder {
     
     private String[][] splitFields(String segmentStr, EdifactDocument document) {
         String releaseChar = document.getReleaseCharacter();
-        Pattern p = Pattern.compile(Pattern.quote(releaseChar+releaseChar));
+        Pattern p = Pattern.compile(Pattern.quote(releaseChar)+"{2}");
     	String[] fields = splitStringWithReleaseChar(segmentStr, releaseChar, elementSeparator, true);
     	String[][] compositeFields = new String[fields.length][];
     	for (int i = 0; i < fields.length; i++) {
@@ -156,11 +157,29 @@ public class EdifactBuilder extends EdiBuilder {
         List<String> segmentWithReleaseChar = new ArrayList<String>();
         for (int i = 0; i < segmentWithoutReleaseChar.length; i++) {
             String segmentStr = segmentWithoutReleaseChar[i];
-            while (segmentStr.endsWith(releaseChar)) {
+            while (isEndsWithReleaseChar(segmentStr, releaseChar)) {
                 segmentStr = segmentStr.substring(0, segmentStr.length()-1) + delimiter + segmentWithoutReleaseChar[++i];
             }
             segmentWithReleaseChar.add(segmentStr);
         }
         return segmentWithReleaseChar.toArray(new String[segmentWithReleaseChar.size()]);
+    }
+    
+    private boolean isEndsWithReleaseChar(String string, String relChar) {
+        if (!string.endsWith(relChar)) {
+            return false;
+        } else {
+            Pattern p = Pattern.compile("("+Pattern.quote(relChar)+"*)$");
+            Matcher m = p.matcher(string);
+            if (m.find()) {
+                if ((m.end() - m.start()) % 2 ==0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
     }
 }
