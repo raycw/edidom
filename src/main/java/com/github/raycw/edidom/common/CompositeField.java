@@ -21,15 +21,15 @@ import java.util.List;
 
 public class CompositeField {
 
-	private Segment segment;
-	private List<Field> fields = new ArrayList<Field>();
-    public CompositeField setSegment(Segment segment) {
-		this.segment = segment;
-		for (Field field : fields) {
-			field.setSegment(segment);
-		}
-		return this;
-	}
+//	private Segment segment;
+	private List<Field> fields;
+//    public CompositeField setSegment(Segment segment) {
+//		this.segment = segment;
+//		for (Field field : fields) {
+//			field.setSegment(segment);
+//		}
+//		return this;
+//	}
 	
 	public CompositeField(CompositeField orig) {
 	    for (Field field : orig.fields) {
@@ -38,11 +38,22 @@ public class CompositeField {
 	}
 	
 	public CompositeField() {
+	    fields = new ArrayList<Field>(5);
+    }
+	
+    public CompositeField(int initCapacity) {
+        fields = new ArrayList<Field>(initCapacity);
     }
 
-    public Segment getSegment() {
-		return segment;
+    /*
+	 * It's for Field object to avoid fields initialization 
+	 */
+	protected CompositeField(Field field) {
 	}
+
+//    public Segment getSegment() {
+//		return segment;
+//	  }
 	
 	public boolean isComposite() {
 		return true;
@@ -60,6 +71,12 @@ public class CompositeField {
 		return fields.get(position-1);
 	}
 	
+	public void setFieldValue(int position, String field) {
+        if (position-1 < 0 || position-1 >= fields.size()) {
+            fields.set(position-1, Field.create(field));
+        }	    
+	}
+	
 	public List<Field> getFields() {
 	    return fields;
 	}
@@ -72,12 +89,12 @@ public class CompositeField {
     	return null;
     }
 
-	public void setValue(String value) {
-        Field field = fields.get(0);
-        if (field != null) {
-            field.setValue(value);
-        }
-	}
+//	public void setValue(String value) {
+//        Field field = fields.get(0);
+//        if (field != null) {
+//            fields.set(0, Field.create(value));
+//        }
+//	}
 	
 	public String[] getValues() {
 	    String[] values = new String[fields.size()];
@@ -87,16 +104,36 @@ public class CompositeField {
 	    return values;
 	}
 	
-	public void setValues(String[] values) {
-	    if (fields.size() == values.length) {
-    	    for (int i = 0; i < values.length; i++) {
-    	        fields.get(i).setValue(values[i]);
-            }
-	    }
-	}
+//	public void setValues(String[] values) {
+//	    if (fields.size() == values.length) {
+//    	    for (int i = 0; i < values.length; i++) {
+//    	        fields.set(i, Field.create((values[i])));
+//            }
+//	    }
+//	}
 
     public CompositeField copy() {
         return new CompositeField(this);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((fields == null) ? 0 : fields.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+        CompositeField other = (CompositeField) obj;
+        if (fields == null) {
+            if (other.fields != null) return false;
+        } else if (!fields.equals(other.fields)) return false;
+        return true;
     }
 	
 }

@@ -31,6 +31,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.raycw.edidom.common.Document;
+import com.github.raycw.edidom.common.Field;
 import com.github.raycw.edidom.common.GroupEnvelope;
 import com.github.raycw.edidom.common.Segment;
 import com.github.raycw.edidom.common.Transaction;
@@ -107,7 +108,7 @@ public class X12OutputterTest {
 	@Test
 	public void testChangeN9_BN() throws IOException {
 		Segment n9 = doc_301.getSegments("N9").get(0);
-		n9.getField(2).setValue("0987654321");
+		n9.setField(2, Field.create("0987654321"));
 		String output = outputter.outputString(doc_301);
 		assertEquals(X12OutputterTest.readFile("/X12_2.txt"), output);
 	}

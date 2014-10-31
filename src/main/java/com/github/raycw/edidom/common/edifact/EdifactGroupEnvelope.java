@@ -98,7 +98,7 @@ public class EdifactGroupEnvelope extends Envelope implements GroupEnvelope{
      * @see com.github.raycw.edidom.common.GroupEnvelope#setFunctionalCode(java.lang.String)
      */
 	public void setFunctionalCode(String code) {
-		getField(1).getField(1).setValue(code);
+		getField(1).setFieldValue(1, code);
 	}
 
 	/* (non-Javadoc)
@@ -111,7 +111,7 @@ public class EdifactGroupEnvelope extends Envelope implements GroupEnvelope{
      * @see com.github.raycw.edidom.common.GroupEnvelope#setSenderCode(java.lang.String)
      */
 	public void setSenderCode(String sender) {
-		getField(2).getField(1).setValue(sender);
+		getField(2).setFieldValue(1, sender);
 	}
 
 	/* (non-Javadoc)
@@ -124,7 +124,7 @@ public class EdifactGroupEnvelope extends Envelope implements GroupEnvelope{
      * @see com.github.raycw.edidom.common.GroupEnvelope#setReceiverCode(java.lang.String)
      */
 	public void setReceiverCode(String receiver) {
-		getField(3).getField(1).setValue(receiver);
+		getField(3).setFieldValue(1, receiver);
 	}
 
 	/* (non-Javadoc)
@@ -137,7 +137,7 @@ public class EdifactGroupEnvelope extends Envelope implements GroupEnvelope{
      * @see com.github.raycw.edidom.common.GroupEnvelope#setControlNumber(java.lang.String)
      */
 	public void setControlNumber(String controlNum) {
-		getField(5).getField(1).setValue(controlNum);
+		getField(5).setFieldValue(1, controlNum);
 	}
 
 	/* (non-Javadoc)
@@ -150,7 +150,7 @@ public class EdifactGroupEnvelope extends Envelope implements GroupEnvelope{
      * @see com.github.raycw.edidom.common.GroupEnvelope#setVersion(java.lang.String)
      */
 	public void setVersion(String version) {
-		getField(8).getField(2).setValue(version);
+		getField(8).setFieldValue(2, version);
 	}
 
 	/* (non-Javadoc)

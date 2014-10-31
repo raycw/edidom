@@ -64,7 +64,7 @@ public class SegmentTest {
     	txn = new X12Transaction(new Segment(TXN_FIELDS));
         segment = new Segment(X12_FIELDS);
         segmentR4 = new Segment(X12_R4_FIELDS);
-        field = new Field();
+        field = Field.create("");
         cField = new CompositeField();
         txn.addSegment(segment);
         group.addTransaction(txn);
@@ -89,8 +89,7 @@ public class SegmentTest {
     public void testAddFieldInPosition() {
     	//Before
         assertEquals(6, segmentR4.getFields().size());
-        Field field = new Field();
-        field.setValue("IL");
+        Field field = Field.create("IL");
         segmentR4.addField(8, field);
         
         assertEquals(9, segmentR4.getFields().size());

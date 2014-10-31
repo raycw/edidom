@@ -21,6 +21,7 @@ import java.util.List;
 
 import com.github.raycw.edidom.common.CompositeField;
 import com.github.raycw.edidom.common.Envelope;
+import com.github.raycw.edidom.common.Field;
 import com.github.raycw.edidom.common.GroupEnvelope;
 import com.github.raycw.edidom.common.LoopGroup;
 import com.github.raycw.edidom.common.Segment;
@@ -149,7 +150,7 @@ public class X12Transaction extends Envelope implements Transaction {
      * @see com.github.raycw.edidom.common.x12.Transaction#setType(java.lang.String)
      */
 	public void setType(String type) {
-		getField(1).setValue(type);
+		segment.setField(1, Field.create(type));
 	}
 	
 	/* (non-Javadoc)
@@ -162,7 +163,7 @@ public class X12Transaction extends Envelope implements Transaction {
      * @see com.github.raycw.edidom.common.x12.Transaction#setControlNumber(java.lang.String)
      */
 	public void setControlNumber(String controlNum) {
-		getField(2).setValue(controlNum);
+	    segment.setField(2, Field.create(controlNum));
 	}
 
 	/* (non-Javadoc)

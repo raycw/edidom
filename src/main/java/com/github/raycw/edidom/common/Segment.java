@@ -22,23 +22,25 @@ import java.util.List;
 public final class Segment {
 
     private Transaction transaction;
-	private List<CompositeField> fields = new ArrayList<CompositeField>();
+	private List<CompositeField> fields;
 	private String segmentTag;
 	
 	public Segment(String[] fields) {
+	    this.fields = new ArrayList<CompositeField>(fields.length);
 	    segmentTag = fields[0];
 	    for (int i = 0; i < fields.length; i++) {
-            Field field = new Field(fields[i]);
+            Field field = Field.create(fields[i]);
             addField(field);
         }
 	}
 	
 	public Segment(String[][] fields) {
+	    this.fields = new ArrayList<CompositeField>(fields.length);
 		segmentTag = fields[0][0];
 		for (int i = 0; i < fields.length; i++) {
-			CompositeField cField = new CompositeField();
+			CompositeField cField = new CompositeField(fields[i].length);
 			for (int j = 0; j < fields[i].length; j++) {
-				Field field = new Field(fields[i][j]);
+				Field field = Field.create(fields[i][j]);
 				cField.addField(field);
 			}
 			addCompositeField(cField);
@@ -51,6 +53,7 @@ public final class Segment {
 	 * @param orig to copy
 	 */
 	public Segment(Segment orig) {
+	    this.fields = new ArrayList<CompositeField>(orig.fields.size());
 		this.segmentTag = orig.segmentTag;
 		for (CompositeField cField : orig.fields) {
             this.fields.add(cField.copy());
@@ -98,6 +101,12 @@ public final class Segment {
 	    return fields.get(position);
 	}
 	
+	public void setField(int position, Field field) {
+        if (position >= 0 || position < fields.size()) {
+            fields.set(position, field);
+        }
+	}
+	
 	public Segment detach() {
 		transaction.removeSegment(this);
 		transaction = null;
@@ -106,14 +115,14 @@ public final class Segment {
 	
 	public Segment addCompositeField(CompositeField field) {
 		fields.add(field);
-		field.setSegment(this);
+//		field.setSegment(this);
 		return this;
 	}
 
 	public Segment addCompositeField(int position, CompositeField field) {
 		// Pad empty field (last index + 1 to position - 1)
 		for(int i = fields.size() ; i <= position - 1 ; i++){
-			fields.add(new Field(""));
+			fields.add(Field.create(""));
 		}
 		fields.add(field);
 		return this;

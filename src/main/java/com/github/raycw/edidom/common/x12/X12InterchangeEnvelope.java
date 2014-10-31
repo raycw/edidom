@@ -21,6 +21,7 @@ import java.util.List;
 import com.github.raycw.edidom.common.CompositeField;
 import com.github.raycw.edidom.common.Document;
 import com.github.raycw.edidom.common.Envelope;
+import com.github.raycw.edidom.common.Field;
 import com.github.raycw.edidom.common.GroupEnvelope;
 import com.github.raycw.edidom.common.InterchangeEnvelope;
 import com.github.raycw.edidom.common.Segment;
@@ -103,7 +104,7 @@ public class X12InterchangeEnvelope extends Envelope implements InterchangeEnvel
      * @see com.github.raycw.edidom.common.x12.InterchangeEnvelopeI#setSenderQualifier(java.lang.String)
      */
     public void setSenderQualifier(String qualifier) {
-        getField(5).setValue(qualifier);
+        segment.setField(5, Field.create(qualifier));
     }
 
     /* (non-Javadoc)
@@ -116,7 +117,7 @@ public class X12InterchangeEnvelope extends Envelope implements InterchangeEnvel
      * @see com.github.raycw.edidom.common.x12.InterchangeEnvelopeI#setSenderId(java.lang.String)
      */
     public void setSenderId(String id) {
-        getField(6).setValue(id);
+        segment.setField(6, Field.create(id));
     }
 
     /* (non-Javadoc)
@@ -129,7 +130,7 @@ public class X12InterchangeEnvelope extends Envelope implements InterchangeEnvel
      * @see com.github.raycw.edidom.common.x12.InterchangeEnvelopeI#setReceiverQualifier(java.lang.String)
      */
     public void setReceiverQualifier(String qualifier) {
-        getField(7).setValue(qualifier);
+        segment.setField(7, Field.create(qualifier));
     }
 
     /* (non-Javadoc)
@@ -143,7 +144,7 @@ public class X12InterchangeEnvelope extends Envelope implements InterchangeEnvel
      * @see com.github.raycw.edidom.common.x12.InterchangeEnvelopeI#setReceiverId(java.lang.String)
      */
     public void setReceiverId(String id) {
-    	getField(8).setValue(id);
+    	segment.setField(8, Field.create(id));
     }
 
     /* (non-Javadoc)
@@ -157,7 +158,7 @@ public class X12InterchangeEnvelope extends Envelope implements InterchangeEnvel
      * @see com.github.raycw.edidom.common.x12.InterchangeEnvelopeI#setVersion(java.lang.String)
      */
     public void setVersion(String version) {
-    	getField(12).setValue(version);
+    	segment.setField(12, Field.create(version));
     }
 
     /* (non-Javadoc)
@@ -171,7 +172,7 @@ public class X12InterchangeEnvelope extends Envelope implements InterchangeEnvel
      * @see com.github.raycw.edidom.common.x12.InterchangeEnvelopeI#setControlNumber(java.lang.String)
      */
     public void setControlNumber(String controlNum) {
-    	getField(13).setValue(controlNum);
+    	segment.setField(13, Field.create(controlNum));
     }
 
 	/* (non-Javadoc)

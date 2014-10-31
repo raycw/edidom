@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.raycw.edidom.common.Document;
+import com.github.raycw.edidom.common.Field;
 import com.github.raycw.edidom.common.InterchangeEnvelope;
 import com.github.raycw.edidom.common.Segment;
 
@@ -98,7 +99,7 @@ public class X12Document implements Document {
     public void setSubElementSeparator(String subElementSeparator) {
         this.subElementSeparator = subElementSeparator;
         if (interchange != null) {
-            interchange.getField(16).setValue(subElementSeparator);
+            interchange.getFields().set(16, Field.create(subElementSeparator));
         }
     }
 

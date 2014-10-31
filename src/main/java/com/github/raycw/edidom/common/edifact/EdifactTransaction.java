@@ -149,7 +149,7 @@ public class EdifactTransaction extends Envelope implements Transaction {
      * @see com.github.raycw.edidom.common.Transaction#setType(java.lang.String)
      */
 	public void setType(String type) {
-		getField(2).getField(1).setValue(type);
+		getField(2).setFieldValue(1, type);
 	}
 	
 	/* (non-Javadoc)
@@ -162,7 +162,7 @@ public class EdifactTransaction extends Envelope implements Transaction {
      * @see com.github.raycw.edidom.common.Transaction#setControlNumber(java.lang.String)
      */
 	public void setControlNumber(String controlNum) {
-		getField(1).getField(1).setValue(controlNum);
+		getField(1).setFieldValue(1, controlNum);
 	}
 
 	/* (non-Javadoc)

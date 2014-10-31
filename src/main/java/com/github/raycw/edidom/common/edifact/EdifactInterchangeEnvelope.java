@@ -124,7 +124,7 @@ public class EdifactInterchangeEnvelope extends Envelope implements InterchangeE
      * @see com.github.raycw.edidom.common.InterchangeEnvelopeI#setSenderQualifier(java.lang.String)
      */
     public void setSenderQualifier(String qualifier) {
-        getField(2).getField(2).setValue(qualifier);
+        getField(2).setFieldValue(2, qualifier);
     }
 
     /* (non-Javadoc)
@@ -137,7 +137,7 @@ public class EdifactInterchangeEnvelope extends Envelope implements InterchangeE
      * @see com.github.raycw.edidom.common.InterchangeEnvelopeI#setSenderId(java.lang.String)
      */
     public void setSenderId(String id) {
-        getField(2).getField(1).setValue(id);
+        getField(2).setFieldValue(1, id);
     }
 
     /* (non-Javadoc)
@@ -150,7 +150,7 @@ public class EdifactInterchangeEnvelope extends Envelope implements InterchangeE
      * @see com.github.raycw.edidom.common.InterchangeEnvelopeI#setReceiverQualifier(java.lang.String)
      */
     public void setReceiverQualifier(String qualifier) {
-        getField(3).getField(2).setValue(qualifier);
+        getField(3).setFieldValue(2, qualifier);
     }
 
     /* (non-Javadoc)
@@ -164,7 +164,7 @@ public class EdifactInterchangeEnvelope extends Envelope implements InterchangeE
      * @see com.github.raycw.edidom.common.InterchangeEnvelopeI#setReceiverId(java.lang.String)
      */
     public void setReceiverId(String id) {
-    	getField(3).getField(1).setValue(id);
+    	getField(3).setFieldValue(1, id);
     }
 
     /* (non-Javadoc)
@@ -178,7 +178,7 @@ public class EdifactInterchangeEnvelope extends Envelope implements InterchangeE
      * @see com.github.raycw.edidom.common.InterchangeEnvelopeI#setVersion(java.lang.String)
      */
     public void setVersion(String version) {
-    	getField(1).getField(2).setValue(version);
+    	getField(1).setFieldValue(2, version);
     }
 
     /* (non-Javadoc)
@@ -192,7 +192,7 @@ public class EdifactInterchangeEnvelope extends Envelope implements InterchangeE
      * @see com.github.raycw.edidom.common.InterchangeEnvelopeI#setControlNumber(java.lang.String)
      */
     public void setControlNumber(String controlNum) {
-    	getField(5).getField(1).setValue(controlNum);
+    	getField(5).setFieldValue(1, controlNum);
     }
 
 	/* (non-Javadoc)

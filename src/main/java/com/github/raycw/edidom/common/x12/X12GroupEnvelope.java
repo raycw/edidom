@@ -20,6 +20,7 @@ import java.util.List;
 
 import com.github.raycw.edidom.common.CompositeField;
 import com.github.raycw.edidom.common.Envelope;
+import com.github.raycw.edidom.common.Field;
 import com.github.raycw.edidom.common.GroupEnvelope;
 import com.github.raycw.edidom.common.InterchangeEnvelope;
 import com.github.raycw.edidom.common.Segment;
@@ -98,7 +99,7 @@ public class X12GroupEnvelope extends Envelope implements GroupEnvelope{
      * @see com.github.raycw.edidom.common.x12.GroupEnvelope#setFunctionalCode(java.lang.String)
      */
 	public void setFunctionalCode(String code) {
-		getField(1).setValue(code);
+		segment.setField(1, Field.create(code));
 	}
 
 	/* (non-Javadoc)
@@ -111,7 +112,7 @@ public class X12GroupEnvelope extends Envelope implements GroupEnvelope{
      * @see com.github.raycw.edidom.common.x12.GroupEnvelope#setSenderCode(java.lang.String)
      */
 	public void setSenderCode(String sender) {
-		getField(2).setValue(sender);
+		segment.setField(2, Field.create(sender));
 	}
 
 	/* (non-Javadoc)
@@ -124,7 +125,7 @@ public class X12GroupEnvelope extends Envelope implements GroupEnvelope{
      * @see com.github.raycw.edidom.common.x12.GroupEnvelope#setReceiverCode(java.lang.String)
      */
 	public void setReceiverCode(String receiver) {
-		getField(3).setValue(receiver);
+		segment.setField(3, Field.create(receiver));
 	}
 
 	/* (non-Javadoc)
@@ -137,7 +138,7 @@ public class X12GroupEnvelope extends Envelope implements GroupEnvelope{
      * @see com.github.raycw.edidom.common.x12.GroupEnvelope#setControlNumber(java.lang.String)
      */
 	public void setControlNumber(String controlNum) {
-		getField(6).setValue(controlNum);
+		segment.setField(6, Field.create(controlNum));
 	}
 
 	/* (non-Javadoc)
@@ -150,7 +151,7 @@ public class X12GroupEnvelope extends Envelope implements GroupEnvelope{
      * @see com.github.raycw.edidom.common.x12.GroupEnvelope#setVersion(java.lang.String)
      */
 	public void setVersion(String version) {
-		getField(8).setValue(version);
+		segment.setField(8, Field.create(version));
 	}
 
 	/* (non-Javadoc)
