@@ -80,7 +80,7 @@ public class Field extends CompositeField {
 	
 	@Override
 	public Field copy() {
-	    return new Field(this);
+	    return Field.create(this.value);
 	}
 
     @Override

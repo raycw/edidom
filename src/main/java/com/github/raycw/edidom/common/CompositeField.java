@@ -32,6 +32,7 @@ public class CompositeField {
 //	}
 	
 	public CompositeField(CompositeField orig) {
+        this(orig.fields.size());
 	    for (Field field : orig.fields) {
             this.fields.add(field.copy());
         }

@@ -4,7 +4,7 @@
 	<artifactId>edidom</artifactId>
 	<packaging>jar</packaging>
 	<name>edidom</name>
-	<version>0.2.7-SNAPSHOT</version>
+	<version>0.2.8-SNAPSHOT</version>
 	<description>Inspired by JDOM, edidom is both Java-centric and Java-optimized. It behaves like Java, it uses Java collections, it is completely natural API for current Java developers, and it provides a low-cost entry point for using EDI.</description>
 	<url>https://github.com/raycw/edidom</url>
 	<licenses>
@@ -18,7 +18,8 @@
 		<url>https://github.com/raycw/edidom</url>
 		<connection>scm:git:https://github.com/raycw/edidom.git</connection>
 		<developerConnection>scm:git:https://github.com/raycw/edidom.git</developerConnection>
-    </scm>
+      <tag>HEAD</tag>
+  </scm>
 	<developers>
 		<developer>
 			<id>raycw</id>
@@ -32,9 +33,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.4.1</version>
+				<version>2.5.1</version>
 				<configuration>
 					<arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
+					<releaseProfiles>release</releaseProfiles>
 				</configuration>
 			</plugin>
 		</plugins>
