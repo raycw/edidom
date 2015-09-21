@@ -36,7 +36,7 @@ import com.github.raycw.edidom.common.edifact.EmptyGroupEnvelope;
  * @author Raymond
  *
  */
-public class EdifactOutputter {
+public class EdifactOutputter implements Outputter{
     public String outputString(Document document) {
         // Create regex for release character
         releasePattern = Pattern.compile("([" + document.getElementSeparator() + document.getSegmentSeparator() + document.getSubElementSeparator() + "])");
