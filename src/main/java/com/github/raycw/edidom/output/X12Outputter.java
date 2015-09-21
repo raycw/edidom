@@ -32,7 +32,7 @@ import com.github.raycw.edidom.common.Transaction;
  * @author Raymond
  *
  */
-public class X12Outputter {
+public class X12Outputter implements Outputter{
 
 	public String outputString(Document document) {
 		StringBuilder strBuilder = new StringBuilder();
