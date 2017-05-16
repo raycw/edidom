@@ -94,7 +94,7 @@ public class EdifactBuilder extends EdiBuilder {
 			if(builderConfiguration != null && builderConfiguration.segmentSeparator != null)
 				document.setSegmentSeparator(builderConfiguration.segmentSeparator);
 			else
-				document.setSegmentSeparator("'1");
+				document.setSegmentSeparator("'");
 		}
 		segmentSeparator = Pattern.compile(document.getSegmentSeparator(), Pattern.LITERAL);
 		elementSeparator = Pattern.compile(document.getElementSeparator(), Pattern.LITERAL);
