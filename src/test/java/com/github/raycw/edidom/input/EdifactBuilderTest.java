@@ -218,11 +218,11 @@ public class EdifactBuilderTest {
 	@Test
 	public void testHandleQuoteWithLinefeedByBuilderConfiguration() {
 		BuilderConfiguration builderConfiguration = new BuilderConfiguration();
-		builderConfiguration.segmentSeparator = "'\r\n";
+		builderConfiguration.segmentSeparator = "'\n";
 		String origin = readFileAsString("/edifact_d96a_quote_with_linefeed.txt");
 		EdifactBuilder builder = new EdifactBuilder();
 		Document document = builder.buildDocument(origin, builderConfiguration);
-		Assert.assertEquals("'\r\n", document.getSegmentSeparator());
+		Assert.assertEquals("'\n", document.getSegmentSeparator());
 		Assert.assertEquals(5, document.getInterchangeEnvelope().getGroups().get(0).getTransactions().size());
 		Outputter outputter = new EdifactOutputter();
 		Assert.assertEquals(origin, outputter.outputString(document));
