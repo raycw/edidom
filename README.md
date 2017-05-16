@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/raycw/edidom.svg?branch=master)](https://travis-ci.org/raycw/edidom)
+
 # Introduction #
 Inspired by JDOM, **edidom** is both Java-centric and Java-optimized. It behaves like Java, it uses Java collections, it is completely natural API for current Java developers, and it provides a low-cost entry point for using EDI. 
 
