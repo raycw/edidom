@@ -16,17 +16,18 @@
 package com.github.raycw.edidom.input;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import com.github.raycw.edidom.output.EdifactOutputter;
+import com.github.raycw.edidom.output.Outputter;
+import org.junit.*;
 
 import com.github.raycw.edidom.common.Document;
 import com.github.raycw.edidom.common.LoopGroup;
@@ -35,6 +36,8 @@ import com.github.raycw.edidom.common.Transaction;
 import com.github.raycw.edidom.common.edifact.EdifactGroupEnvelope;
 import com.github.raycw.edidom.common.edifact.EdifactInterchangeEnvelope;
 import com.github.raycw.edidom.input.EdifactBuilder;
+
+import javax.print.Doc;
 
 public class EdifactBuilderTest {
 
@@ -57,16 +60,7 @@ public class EdifactBuilderTest {
 
 	@BeforeClass
 	public static void onlyOnce() throws Exception {
-		InputStream in = EdifactBuilderTest.class
-				.getResourceAsStream("/invoice_d97b.txt");
-		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-		char[] buffer = new char[1024];
-		int nRead;
-		StringBuilder content = new StringBuilder();
-		while ((nRead = reader.read(buffer, 0, 1024)) != -1) {
-			content.append(buffer, 0, nRead);
-		}
-		edifactStr = content.toString();
+		edifactStr = readFileAsString("/invoice_d97b.txt");
 	}
 
 	@Before
@@ -207,4 +201,49 @@ public class EdifactBuilderTest {
         Segment bgm = txn.getSegments("BGM").get(0);
         assertEquals("3+4:2'4?5:", bgm.getField(2).getValue());
     }
+
+	@Test
+	public void testHandleLinefeedByBuilderConfiguration() {
+		BuilderConfiguration builderConfiguration = new BuilderConfiguration();
+		builderConfiguration.segmentSeparator = "\n";
+		EdifactBuilder builder = new EdifactBuilder();
+		String origin = readFileAsString("/edifact_d96a_linefeed.txt");
+		Document document = builder.buildDocument(origin, builderConfiguration);
+		Assert.assertEquals("\n", document.getSegmentSeparator());
+		Assert.assertEquals(5, document.getInterchangeEnvelope().getGroups().get(0).getTransactions().size());
+		Outputter outputter = new EdifactOutputter();
+		Assert.assertEquals(origin, outputter.outputString(document));
+	}
+
+	@Test
+	public void testHandleQuoteWithLinefeedByBuilderConfiguration() {
+		BuilderConfiguration builderConfiguration = new BuilderConfiguration();
+		builderConfiguration.segmentSeparator = "'\r\n";
+		String origin = readFileAsString("/edifact_d96a_quote_with_linefeed.txt");
+		EdifactBuilder builder = new EdifactBuilder();
+		Document document = builder.buildDocument(origin, builderConfiguration);
+		Assert.assertEquals("'\r\n", document.getSegmentSeparator());
+		Assert.assertEquals(5, document.getInterchangeEnvelope().getGroups().get(0).getTransactions().size());
+		Outputter outputter = new EdifactOutputter();
+		Assert.assertEquals(origin, outputter.outputString(document));
+	}
+
+
+	private static String readFileAsString(String resourceName){
+		InputStream in = EdifactBuilderTest.class
+				.getResourceAsStream(resourceName);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		char[] buffer = new char[1024];
+		int nRead;
+		StringBuilder content = new StringBuilder();
+		try {
+			while ((nRead = reader.read(buffer, 0, 1024)) != -1) {
+                content.append(buffer, 0, nRead);
+            }
+		} catch (IOException e) {
+			assertFalse(true);
+		}
+		return content.toString();
+	}
+
 }

@@ -29,7 +29,11 @@ public abstract class EdiBuilder {
 		super();
 	}
 
-	public abstract Document buildDocument(String content);
+	public Document buildDocument(String content){
+		return buildDocument(content, null);
+	}
+
+	public abstract Document buildDocument(String content, BuilderConfiguration builderConfiguration);
 
 	/**
 	 * It will build a EDI document from file.

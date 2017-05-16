@@ -42,7 +42,7 @@ public class EdifactBuilder extends EdiBuilder {
     private Pattern segmentSeparator;
     private Pattern elementSeparator;
     private Pattern subElementSeparator;
-    
+
 	/**
 	 * It will build a EDI document from string.
 	 * 
@@ -51,7 +51,7 @@ public class EdifactBuilder extends EdiBuilder {
 	 * @return EdifactDocument
 	 */
 	@Override
-	public Document buildDocument(String content) {
+	public Document buildDocument(String content,  BuilderConfiguration builderConfiguration) {
 		if (!content.startsWith("UNA") && !content.startsWith("UNB")) {
 			throw new WrongDocuemntFormatException("Not a Edifact Document");
 		}
@@ -75,11 +75,26 @@ public class EdifactBuilder extends EdiBuilder {
 			document.setReleaseCharacter(levelAStrArray[4]);
 		} else {
 			//document.setElementSeparator(content.substring(3, 4));
-			//Assign defaults character. TODO - read content to recognize the delimiter 
-		    document.setSubElementSeparator(":");
-		    document.setElementSeparator("+");
-		    document.setReleaseCharacter("?");
-		    document.setSegmentSeparator("'");
+			//Assign defaults character. TODO - read content to recognize the delimiter
+			if(builderConfiguration != null && builderConfiguration.subElementSeparator != null)
+		    	document.setSubElementSeparator(builderConfiguration.subElementSeparator);
+			else
+				document.setSubElementSeparator(":");
+
+			if(builderConfiguration != null && builderConfiguration.elementSeparator != null)
+				document.setElementSeparator(builderConfiguration.elementSeparator);
+			else
+				document.setElementSeparator("+");
+
+			if(builderConfiguration != null && builderConfiguration.releaseCharacter != null)
+				document.setReleaseCharacter(builderConfiguration.releaseCharacter);
+			else
+				document.setReleaseCharacter("?");
+
+			if(builderConfiguration != null && builderConfiguration.segmentSeparator != null)
+				document.setSegmentSeparator(builderConfiguration.segmentSeparator);
+			else
+				document.setSegmentSeparator("'1");
 		}
 		segmentSeparator = Pattern.compile(document.getSegmentSeparator(), Pattern.LITERAL);
 		elementSeparator = Pattern.compile(document.getElementSeparator(), Pattern.LITERAL);
@@ -123,7 +138,7 @@ public class EdifactBuilder extends EdiBuilder {
 		return document;
 	}
 
-    private Segment buildSegment(String segmentStr, EdifactDocument document) {
+	private Segment buildSegment(String segmentStr, EdifactDocument document) {
         return new Segment(splitFields(segmentStr, document));
     }
     
