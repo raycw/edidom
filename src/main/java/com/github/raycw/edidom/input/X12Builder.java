@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Raymond Chin
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,8 +28,8 @@ import com.github.raycw.edidom.common.x12.X12InterchangeEnvelope;
 import com.github.raycw.edidom.common.x12.X12Transaction;
 
 /**
- * A X12 X12Document builder to build a EDI document from file or String. 
- *  
+ * A X12 X12Document builder to build a EDI document from file or String.
+ *
  * @author Raymond
  *
  */
@@ -39,15 +39,15 @@ public class X12Builder extends EdiBuilder {
      * for performance boost
      */
     private Pattern elementSeparator;
-    
+
 	/**
 	 * It will build a EDI document from string.
-	 * 
+	 *
 	 * @param content String to read from
 	 * @return X12Document
 	 */
 	@Override
-	public Document buildDocument(String content) {
+	public Document buildDocument(String content, BuilderConfiguration builderConfiguration) {
 		if (!content.startsWith("ISA")) {
 			throw new WrongDocuemntFormatException("Not a X12 Document");
 		}
@@ -55,18 +55,18 @@ public class X12Builder extends EdiBuilder {
 		String elementSeparator = content.substring(3, 4);
 		document.setElementSeparator(elementSeparator);
 		String[] isaSegment = content.split(Pattern.quote(elementSeparator), 18);
-		// to get the segment separator, get the ISA16 value, it contains  
-		// sub-element separator,  segment separator and GS. 
+		// to get the segment separator, get the ISA16 value, it contains
+		// sub-element separator,  segment separator and GS.
 		// for example: :~\nGS
 		String segmentSeparator = isaSegment[16].substring(1).replace("GS", "");
 		String subElementSeparator = isaSegment[16].substring(0, 1);
 		document.setSegmentSeparator(segmentSeparator);
 		document.setSubElementSeparator(subElementSeparator);
-		
+
 		this.elementSeparator = Pattern.compile(document.getElementSeparator(), Pattern.LITERAL);
-		
+
 		String[] segments = content.split(Pattern.quote(segmentSeparator));
-		
+
 		// assume 1st segment is ISA
 		InterchangeEnvelope isa = buildInterchangeEnvelope(buildSegment(segments[0], document));
 		document.setInterchangeEnvelope(isa);
@@ -99,7 +99,7 @@ public class X12Builder extends EdiBuilder {
 		return document;
 	}
 
-    private Transaction buildTransaction(Segment segment) {
+	private Transaction buildTransaction(Segment segment) {
 		return new X12Transaction(segment);
 	}
 
@@ -110,7 +110,7 @@ public class X12Builder extends EdiBuilder {
 	private InterchangeEnvelope buildInterchangeEnvelope(Segment segment) {
         return new X12InterchangeEnvelope(segment);
     }
-	
+
 	private Segment buildSegment(String segmentStr, Document document) {
 	    return new Segment(splitFields(segmentStr, document));
 	}
